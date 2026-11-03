@@ -1,9 +1,4 @@
-/**
- * The six case studies. Copy, covers, logos, authors and the per-page related
- * pairs are all lifted from the export; `related` reproduces the original's own
- * pairing, including BoxMedia listing itself (see PRODUCT.md).
- */
-
+/** Fictional personal finance stories; original routes and image composition retained. */
 export type Block = {
   heading: string;
   body: string;
@@ -28,227 +23,250 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "pluto",
-    name: "Pluto",
-    year: "2025",
-    excerpt:
-      "Helped Pluto scale their product team and streamline onboarding as they expanded into new markets.",
-    cover: "/assets/img/ec4732f3e7b3b95b.webp",
-    coverAlt: "Minimalist Note Card Composition",
-    logo: "/assets/img/76d004437777d747.webp",
-    author: {
-      name: "Talia Nguyen",
-      role: "Head of Product",
-      avatar: "/assets/img/5bba0761e5487a70.webp",
+    "slug": "pluto",
+    "name": "Everyday clarity",
+    "year": "Illustrative story",
+    "excerpt": "A calmer month starts with knowing where your money goes.",
+    "cover": "/assets/img/ec4732f3e7b3b95b.webp",
+    "coverAlt": "Illustrative scene for everyday clarity",
+    "logo": "/assets/moneta/wordmark.svg",
+    "author": {
+      "name": "Talia Smith",
+      "role": "Fictional persona",
+      "avatar": "/assets/img/5bba0761e5487a70.webp"
     },
-    blocks: [
+    "blocks": [
       {
-        heading: "Enhancing workflow efficiency",
-        body: "Grovia partnered with Pluto to streamline their internal operations. By mapping out their entire payment processing and compliance workflows, we identified inefficiencies and implemented automation to reduce manual tasks. The result was a 25% increase in operational speed without compromising compliance accuracy.",
-        images: ["/assets/img/91004ec33709a9fc.webp"],
+        "heading": "Spending with intention",
+        "body": "Talia imagines seeing groceries, coffee, and recurring costs side by side. Clear categories turn a long list of purchases into a picture she can understand.",
+        "images": [
+          "/assets/img/91004ec33709a9fc.webp"
+        ]
       },
       {
-        heading: "Scaling securely with integrated solutions",
-        body: "Grovia introduced a custom integration plan, connecting Pluto’s internal systems with third-party compliance tools and real-time reporting dashboards. This gave leadership immediate visibility into transactions while ensuring that data remained secure and up-to-date.",
-        images: ["/assets/img/20aaeaa67a5cdd7e.webp", "/assets/img/d1718b04b6c6887d.webp"],
+        "heading": "A budget with breathing room",
+        "body": "Her sample plan makes space for essentials and small joys. The aim is a more intentional month, with less time spent wondering where it all went.",
+        "images": [
+          "/assets/img/20aaeaa67a5cdd7e.webp",
+          "/assets/img/d1718b04b6c6887d.webp"
+        ]
       },
       {
-        heading: "Building a specialized team to support product innovation",
-        body: "We helped Pluto recruit talent in critical areas such as fraud prevention, financial compliance, and AI-driven analytics. These hires enabled Pluto to:",
-        bullets: [
-          "Enhance fraud detection algorithms",
-          "Improve payment reconciliation speed",
-          "Maintain high regulatory standards",
-        ],
-        bulletTail:
-          "This combination of skills positioned Pluto to expand confidently into new markets.",
-        images: ["/assets/img/4bf7f415d2d62b37.webp"],
-      },
+        "heading": "Noticing the little things",
+        "body": "A monthly overview could make small spending patterns easier to spot. This is a fictional scenario illustrating the Moneta design, not a measured customer outcome.",
+        "images": [
+          "/assets/img/4bf7f415d2d62b37.webp"
+        ]
+      }
     ],
-    related: ["boxmedia", "naviai"],
+    "related": [
+      "boxmedia",
+      "naviai"
+    ]
   },
   {
-    slug: "vitahealth",
-    name: "VitaHealth",
-    year: "2024",
-    excerpt: "Partnered with VitaHealth to set up their first operations team from the ground up.",
-    cover: "/assets/img/e5aaf9a895c0f275.webp",
-    coverAlt: "Green Plant",
-    logo: "/assets/img/5e6f363cd4ff6f3f.webp",
-    author: {
-      name: "Sophia Reynolds",
-      role: "Founder & CEO",
-      avatar: "/assets/img/c515fb1f0e44c483.webp",
+    "slug": "vitahealth",
+    "name": "Room for the unexpected",
+    "year": "Illustrative story",
+    "excerpt": "Picture an emergency fund that grows a little at a time.",
+    "cover": "/assets/img/e5aaf9a895c0f275.webp",
+    "coverAlt": "Illustrative scene for room for the unexpected",
+    "logo": "/assets/moneta/wordmark.svg",
+    "author": {
+      "name": "Jordan Johnson",
+      "role": "Fictional persona",
+      "avatar": "/assets/img/c515fb1f0e44c483.webp"
     },
-    blocks: [
+    "blocks": [
       {
-        heading: "Improving patient engagement",
-        body: "VitaHealth approached Grovia to consolidate its fragmented patient engagement tools into a single, cohesive system. Our team analyzed their existing patient communication workflows and built a central platform that unified appointment scheduling, follow-ups, and wellness reminders. This improved patient satisfaction scores by 18% within the first quarter.",
-        images: ["/assets/img/92cdcc16dfc2ed87.webp", "/assets/img/91004ec33709a9fc.webp"],
+        "heading": "A goal with a purpose",
+        "body": "Jordan imagines a savings goal for the unexpected. Naming the goal gives the sample balance a purpose beyond a number on a screen.",
+        "images": [
+          "/assets/img/92cdcc16dfc2ed87.webp",
+          "/assets/img/91004ec33709a9fc.webp"
+        ]
       },
       {
-        heading: "Recruiting healthcare technology specialists",
-        body: "We assembled a team of UX designers, healthcare compliance experts, and data engineers to redesign VitaHealth’s digital platform. The combined expertise allowed VitaHealth to:",
-        bullets: [
-          "Launch an updated patient portal in just 90 days",
-          "Integrate secure telemedicine features",
-          "Meet HIPAA compliance requirements without delays",
-        ],
-        images: ["/assets/img/d1718b04b6c6887d.webp"],
-      },
+        "heading": "Making progress visible",
+        "body": "A simple progress bar shows a fictional emergency fund at $10,000 toward a $12,000 goal. It is a visual example, not a live account or financial recommendation.",
+        "images": [
+          "/assets/img/d1718b04b6c6887d.webp"
+        ]
+      }
     ],
-    related: ["novatech", "lumora"],
+    "related": [
+      "novatech",
+      "lumora"
+    ]
   },
   {
-    slug: "boxmedia",
-    name: "BoxMedia",
-    year: "2025",
-    excerpt:
-      "Supported BoxMedia, a creative agency, in building their client success team and internal delivery process.",
-    cover: "/assets/img/3966f5caca770a0c.webp",
-    coverAlt: "Pink Radio",
-    logo: "/assets/img/cdfe39454d286a98.webp",
-    author: {
-      name: "Lucas Rivera",
-      role: "CFO",
-      avatar: "/assets/img/306438f6ee17d2d3.webp",
+    "slug": "boxmedia",
+    "name": "Somewhere new",
+    "year": "Illustrative story",
+    "excerpt": "Small steps toward a trip worth looking forward to.",
+    "cover": "/assets/img/3966f5caca770a0c.webp",
+    "coverAlt": "Illustrative scene for somewhere new",
+    "logo": "/assets/moneta/wordmark.svg",
+    "author": {
+      "name": "Alex Morgan",
+      "role": "Fictional persona",
+      "avatar": "/assets/img/306438f6ee17d2d3.webp"
     },
-    blocks: [
+    "blocks": [
       {
-        heading: "Streamlining content production",
-        body: "BoxMedia partnered with Grovia to simplify its content creation and distribution workflows across multiple platforms. We created a centralized project management environment that connected creative teams, editors, and distribution partners. This eliminated redundancy and reduced content turnaround time by 35%.",
-        images: ["/assets/img/8e83e799311ae31c.webp"],
+        "heading": "Something to look forward to",
+        "body": "Alex pictures a travel fund for a long-awaited trip. The sample dashboard gives that goal its own place, alongside everyday priorities.",
+        "images": [
+          "/assets/img/8e83e799311ae31c.webp"
+        ]
       },
       {
-        heading: "Building the right team for creative excellence",
-        body: "Our recruitment process brought in specialists in video editing, digital marketing, and metadata optimization. With these experts, BoxMedia was able to:",
-        bullets: [
-          "Produce higher-quality content faster",
-          "Improve discoverability on streaming platforms",
-          "Expand its multilingual offerings to new markets",
-        ],
-        images: ["/assets/img/91004ec33709a9fc.webp", "/assets/img/0f06b396e06bb539.webp"],
-      },
+        "heading": "A little closer each month",
+        "body": "The fictional preview shows $2,450 toward a $4,000 travel goal. A lavender progress indicator makes the milestone easy to see at a glance.",
+        "images": [
+          "/assets/img/91004ec33709a9fc.webp",
+          "/assets/img/0f06b396e06bb539.webp"
+        ]
+      }
     ],
-    // The original's own pairing: BoxMedia's "More insights" lists BoxMedia.
-    related: ["boxmedia", "novatech"],
+    "related": [
+      "boxmedia",
+      "novatech"
+    ]
   },
   {
-    slug: "novatech",
-    name: "NovaTech",
-    year: "2023",
-    excerpt:
-      "Helped NovaTech optimize cross-functional collaboration between marketing, product, and sales teams.",
-    cover: "/assets/img/2fc347463d5ac01a.webp",
-    coverAlt: "Laptop and Plant",
-    logo: "/assets/img/215deec62f6c013a.webp",
-    author: {
-      name: "Lucas Rivera",
-      role: "CFO",
-      avatar: "/assets/img/306438f6ee17d2d3.webp",
+    "slug": "novatech",
+    "name": "The little recurring things",
+    "year": "Illustrative story",
+    "excerpt": "A clearer view of the subscriptions in everyday life.",
+    "cover": "/assets/img/2fc347463d5ac01a.webp",
+    "coverAlt": "Illustrative scene for the little recurring things",
+    "logo": "/assets/moneta/wordmark.svg",
+    "author": {
+      "name": "Samuel Torres",
+      "role": "Fictional persona",
+      "avatar": "/assets/img/306438f6ee17d2d3.webp"
     },
-    blocks: [
+    "blocks": [
       {
-        heading: "Accelerating product development cycles",
-        body: "NovaTech needed a scalable solution to manage product roadmaps and cross-department collaboration. Grovia implemented a unified project management tool that allowed engineering, design, and marketing teams to work in sync. This reduced feature release cycles from 8 weeks to 5 weeks.",
-        images: ["/assets/img/20aaeaa67a5cdd7e.webp", "/assets/img/5f39d6b8e450ecc4.webp"],
+        "heading": "A place for recurring costs",
+        "body": "Samuel imagines reviewing streaming, music, and other recurring expenses together. The concept makes those small, regular costs easier to notice.",
+        "images": [
+          "/assets/img/20aaeaa67a5cdd7e.webp",
+          "/assets/img/5f39d6b8e450ecc4.webp"
+        ]
       },
       {
-        heading: "Recruiting top-tier engineering and product talent",
-        body: "Grovia sourced and onboarded specialists in software architecture, cloud infrastructure, and UI/UX design. This new talent pool enabled NovaTech to:",
-        bullets: [
-          "Launch more stable product updates",
-          "Improve user experience with design-focused refinements",
-          "Expand into emerging tech segments",
-        ],
-        images: ["/assets/img/33cf31c4414086a3.webp"],
+        "heading": "Seeing the full picture",
+        "body": "Sample transaction categories distinguish subscriptions from one-off purchases. Everything shown is fictional and no subscription services are connected.",
+        "images": [
+          "/assets/img/33cf31c4414086a3.webp"
+        ]
       },
       {
-        heading: "Integrating performance tracking",
-        body: "We deployed an analytics suite within NovaTech’s internal systems to track engineering velocity, defect rates, and user feedback in real time. These metrics provided leadership with actionable insights, enabling faster pivots and more strategic product decisions.",
-        images: ["/assets/img/91004ec33709a9fc.webp", "/assets/img/9e860748e3248a44.webp"],
-      },
+        "heading": "A more intentional month",
+        "body": "With recurring costs in view, Samuel could reflect on what matters to him. Moneta does not cancel subscriptions or provide account management.",
+        "images": [
+          "/assets/img/91004ec33709a9fc.webp",
+          "/assets/img/9e860748e3248a44.webp"
+        ]
+      }
     ],
-    related: ["boxmedia", "pluto"],
+    "related": [
+      "boxmedia",
+      "pluto"
+    ]
   },
   {
-    slug: "naviai",
-    name: "NaviAI",
-    year: "2025",
-    excerpt:
-      "NaviAI, an emerging leader in AI-driven navigation systems, partnered with Grovia to scale their technical team.",
-    cover: "/assets/img/917b968711888bd6.webp",
-    coverAlt: "3D Objects",
-    logo: "/assets/img/09078776a32bae0e.webp",
-    author: {
-      name: "Emily Johnson",
-      role: "Lead Designer",
-      avatar: "/assets/img/d17f9d727ad1202b.webp",
+    "slug": "naviai",
+    "name": "A place of your own",
+    "year": "Illustrative story",
+    "excerpt": "Imagine a longer-term goal without losing sight of today.",
+    "cover": "/assets/img/917b968711888bd6.webp",
+    "coverAlt": "Illustrative scene for a place of your own",
+    "logo": "/assets/moneta/wordmark.svg",
+    "author": {
+      "name": "Maya Chen",
+      "role": "Fictional persona",
+      "avatar": "/assets/img/d17f9d727ad1202b.webp"
     },
-    blocks: [
+    "blocks": [
       {
-        heading: "Identifying gaps and strategic needs",
-        body: "Before building the team, Grovia worked closely with NaviAI to understand their growth roadmap and pinpoint specific talent gaps. This included identifying critical roles in AI model training, data engineering, and UX design. By aligning team-building with product goals, we ensured every new hire contributed directly to the company’s long-term vision.",
-        images: ["/assets/img/20aaeaa67a5cdd7e.webp"],
+        "heading": "Naming the next chapter",
+        "body": "Maya imagines setting a personal goal for a future home. A dedicated goal card gives that intention a clear place in the concept dashboard.",
+        "images": [
+          "/assets/img/20aaeaa67a5cdd7e.webp"
+        ]
       },
       {
-        heading: "Building a specialized team",
-        body: "Grovia’s recruitment and project management platform enabled NaviAI to quickly source, vet, and onboard top-tier professionals. Leveraging our extensive network, we assembled a balanced team of engineers, data scientists, and product managers who could collaborate seamlessly from day one. The new team integrated smoothly with NaviAI’s existing workflows, ensuring minimal disruption.",
-        images: ["/assets/img/3f5c93cf7e6f1453.webp", "/assets/img/8e83e799311ae31c.webp"],
+        "heading": "Keeping today in view",
+        "body": "Monthly budget categories sit alongside longer-term goals. The design explores how both perspectives can coexist without overwhelming the screen.",
+        "images": [
+          "/assets/img/3f5c93cf7e6f1453.webp",
+          "/assets/img/8e83e799311ae31c.webp"
+        ]
       },
       {
-        heading: "Accelerating product development",
-        body: "With the right team in place, NaviAI was able to cut development timelines by nearly 40 percent. The improved efficiency allowed for faster feature rollouts, enhanced navigation accuracy, and a stronger ability to respond to customer feedback. This rapid iteration not only strengthened the product but also gave NaviAI a significant competitive edge.",
-        images: [],
-      },
+        "heading": "Progress at your own pace",
+        "body": "The sample goal is a visual illustration only. This portfolio makes no promises about savings results and provides no financial advice.",
+        "images": []
+      }
     ],
-    related: ["lumora", "vitahealth"],
+    "related": [
+      "lumora",
+      "vitahealth"
+    ]
   },
   {
-    slug: "lumora",
-    name: "Lumora",
-    year: "2025",
-    excerpt:
-      "Lumora Health partnered with Grovia to streamline their product launch process and cross-team coordination.",
-    cover: "/assets/img/ce104c98bfe00a8a.webp",
-    coverAlt: "Health Device",
-    logo: "/assets/img/7dba81e817c24568.webp",
-    author: {
-      name: "Talia Nguyen",
-      role: "Head of Product",
-      avatar: "/assets/img/5bba0761e5487a70.webp",
+    "slug": "lumora",
+    "name": "A month that fits",
+    "year": "Illustrative story",
+    "excerpt": "A flexible sample budget for changing priorities.",
+    "cover": "/assets/img/ce104c98bfe00a8a.webp",
+    "coverAlt": "Illustrative scene for a month that fits",
+    "logo": "/assets/moneta/wordmark.svg",
+    "author": {
+      "name": "Leo Rivera",
+      "role": "Fictional persona",
+      "avatar": "/assets/img/5bba0761e5487a70.webp"
     },
-    blocks: [
+    "blocks": [
       {
-        heading: "Building a scalable operations framework",
-        body: "Grovia partnered with Lumora Health to create a robust operational foundation that could support their rapid expansion in the digital healthcare sector. Our team evaluated their existing workflows, identified bottlenecks in patient onboarding and data handling, and designed a framework to ensure compliance and scalability.",
-        images: ["/assets/img/92cdcc16dfc2ed87.webp"],
+        "heading": "Starting with everyday life",
+        "body": "Leo imagines a monthly plan built around essentials, leisure, and a few little extras. The categories reflect the ways money shows up in daily life.",
+        "images": [
+          "/assets/img/92cdcc16dfc2ed87.webp"
+        ]
       },
       {
-        heading: "Strengthening cross-functional collaboration",
-        body: "Through Grovia’s recruitment platform, we assembled a team of healthcare operations specialists, data security experts, and product managers. This blend of talent ensured that Lumora Health could meet both regulatory requirements and innovation goals while maintaining exceptional patient care standards.",
-        images: ["/assets/img/d1718b04b6c6887d.webp"],
+        "heading": "Making space for change",
+        "body": "The illustrative budget card pairs sample category amounts with simple progress bars. It explores clarity and visual hierarchy, without live calculations.",
+        "images": [
+          "/assets/img/d1718b04b6c6887d.webp"
+        ]
       },
       {
-        heading: "Accelerating product development",
-        body: "With improved processes and a stronger team in place, Lumora Health reduced their product release cycle time by 30 percent. They were able to introduce new telehealth features, improve patient engagement tools, and deliver updates more quickly, helping them remain competitive in the fast-paced HealthTech market.",
-        images: ["/assets/img/3f5c93cf7e6f1453.webp", "/assets/img/d4c328e4eaf6dd2d.webp"],
-      },
+        "heading": "A calmer overview",
+        "body": "The story shows how a finance interface could feel approachable. Leo is a fictional persona, and the example does not describe a real customer experience.",
+        "images": [
+          "/assets/img/3f5c93cf7e6f1453.webp",
+          "/assets/img/d4c328e4eaf6dd2d.webp"
+        ]
+      }
     ],
-    related: ["boxmedia", "novatech"],
-  },
+    "related": [
+      "boxmedia",
+      "novatech"
+    ]
+  }
 ];
-
-export const bySlug = (slug: string) => caseStudies.find((c) => c.slug === slug);
-
+export const bySlug = (slug: string) => caseStudies.find(c => c.slug === slug);
 export const caseStudiesIndex = {
-  headingWords: ["Success", "stories", "from", "fast-growing", "startups"],
-  sub: "Explore how Grovia has helped startups and growing businesses overcome challenges, scale faster, and build high-performing teams.",
+  headingWords: ["A", "little", "clarity", "for", "everyday", "life."],
+  sub: "Fictional stories exploring how the Moneta concept could fit into everyday life. These are illustrative examples, not customer experiences or financial advice.",
 };
-
 export const relatedIntro = {
-  heading: "More insights to explore",
-  sub: "Discover additional case studies, tips, and strategies to help your business grow and innovate faster.",
+  heading: "More possibilities to explore",
+  sub: "Discover more fictional stories about spending, budgeting, and saving.",
 };
-
-export const backLink = { label: "All case studies", href: "/case-studies" };
+export const backLink = { label: "All example stories", href: "/case-studies" };

@@ -9,7 +9,7 @@ const shell =
   "relative inline-flex items-center justify-center t-btn transition-opacity hover:opacity-80";
 
 const variants: Record<Variant, string> = {
-  black: "gap-3 rounded-[32px] bg-ink py-2 pl-4 pr-2 text-white",
+  black: "gap-3 rounded-[32px] bg-primary py-2 pl-4 pr-2 text-white",
   yellow: "gap-3 rounded-[32px] bg-butter py-2 pl-4 pr-2 text-ink",
   // The outline's rule is an ::after overlay, exactly as Framer draws it.
   outline: "h-11 gap-3 rounded-[32px] px-5 py-3 text-ink ring-ink",

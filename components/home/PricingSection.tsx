@@ -22,14 +22,14 @@ export function PricingSection() {
       <div className="relative w-full max-w-[1400px] overflow-hidden rounded-[28px] lg:rounded-[32px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={pricing.background} alt="" className="absolute inset-0 size-full object-cover" />
-        <div className="absolute inset-0 bg-black/[0.68]" />
+        <div className="absolute inset-0 bg-forest/[0.78]" />
 
         <div className="bleed-inner relative flex flex-col items-start gap-5 py-16 md:py-20 lg:flex-row lg:justify-between lg:gap-0">
           <Reveal className="flex w-full flex-col justify-center gap-10 lg:w-[356px] lg:justify-between lg:self-stretch">
             <div className="flex flex-col gap-10">
               <div className="flex flex-col gap-5">
                 <h2 className="t-h2 text-white">{pricing.heading}</h2>
-                <p className="t-lead text-white/80 lg:hidden">{pricing.sub}</p>
+                <p className="t-lead text-white/80">{pricing.sub}</p>
               </div>
 
               <div

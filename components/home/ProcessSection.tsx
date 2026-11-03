@@ -47,7 +47,7 @@ export function ProcessSection() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="flex justify-center">
+    <section id="how-it-works" className="flex justify-center">
       <div className="wrap flex flex-col py-20">
         <Reveal className="relative mx-auto aspect-[342/239] w-full overflow-hidden rounded-xl md:aspect-[614/370] md:w-[90%] md:rounded-3xl lg:aspect-[863/480] lg:w-[83%]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -61,10 +61,12 @@ export function ProcessSection() {
             className="pointer-events-none absolute inset-x-0 bottom-0 h-[25px] md:h-10"
             style={{
               background:
-                "linear-gradient(rgba(244,242,238,0) 0%, rgba(244,242,238,0.85) 65%, rgba(244,242,238,0.9) 100%)",
+                "linear-gradient(rgba(247,249,245,0) 0%, rgba(247,249,245,0.85) 65%, rgba(247,249,245,0.9) 100%)",
             }}
           />
         </Reveal>
+
+        <h2 className="t-h2 mx-auto mb-10 mt-10 max-w-[600px] text-center">Better finances in three simple steps.</h2>
 
         {/* < 1200: every card open — two-up on tablet with the third full width */}
         <div className="grid gap-2 rounded-3xl bg-panel p-2 md:grid-cols-2 lg:hidden">

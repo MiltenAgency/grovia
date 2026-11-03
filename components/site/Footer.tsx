@@ -1,8 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
-import { footer, site } from "@/lib/content/site";
+import { footer } from "@/lib/content/site";
 import { Icon, type IconName } from "@/components/ui/Icon";
 
 const socialIcon: Record<string, IconName> = {
@@ -12,13 +9,6 @@ const socialIcon: Record<string, IconName> = {
 };
 
 export function Footer() {
-  const [sent, setSent] = useState(false);
-
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    setSent(true);
-  }
-
   return (
     <footer className="flex justify-center px-1 pt-5 md:p-5">
       <div className="w-full max-w-[1400px] rounded-t-[28px] bg-panel py-10 md:rounded-[32px] lg:py-16">
@@ -26,24 +16,11 @@ export function Footer() {
           <div className="flex flex-col items-center gap-10 md:flex-row md:items-center md:justify-between md:gap-0">
             <div className="flex w-full flex-col items-start gap-5 md:w-[540px]">
               <h4 className="t-h4 w-full text-muted">{footer.newsletterHeading}</h4>
-              <form onSubmit={onSubmit} className="relative w-full">
-                <label htmlFor="newsletter" className="sr-only">
-                  {footer.newsletterHeading}
-                </label>
-                <input
-                  id="newsletter"
-                  type="email"
-                  required
-                  placeholder={footer.newsletterPlaceholder}
-                  className="h-[51px] w-full rounded-[50px] bg-paper py-[15px] pl-[15px] pr-[127px] t-body text-muted outline-none"
-                />
-                <button
-                  type="submit"
-                  className="absolute right-[5px] top-[5px] h-[41px] rounded-[45px] bg-ink px-5 t-body font-medium text-white transition-opacity hover:opacity-80"
-                >
-                  {sent ? "Thanks" : footer.newsletterButton}
-                </button>
-              </form>
+              <div className="flex w-full items-center justify-between gap-4 rounded-[50px] bg-paper p-[5px] pl-[15px]">
+                <span className="t-body text-muted">A little clarity goes a long way.</span>
+                <Link href="/#feature" className="shrink-0 rounded-[45px] bg-primary px-5 py-3 t-body font-medium text-white transition-opacity hover:opacity-80">Explore Moneta</Link>
+              </div>
+              <p id="portfolio-disclaimer" className="t-small text-muted md:max-w-[460px]">{footer.disclaimer}</p>
             </div>
 
             <nav className="flex w-full items-start gap-8 md:w-auto md:gap-10">
@@ -73,7 +50,7 @@ export function Footer() {
                   <li key={s.label}>
                     <a
                       href={s.href}
-                      aria-label={s.label}
+                      aria-label={`${s.label} platform (not a Moneta profile)`}
                       className="flex size-9 items-center justify-center rounded-full bg-white/40 transition-opacity hover:opacity-70"
                     >
                       <Icon name={socialIcon[s.label]} size={20} />
@@ -84,10 +61,10 @@ export function Footer() {
               {/* The export marks this up as an <h1>; kept visually identical
                   but demoted so each route has exactly one. */}
               <p className="t-h1">
-                <a href={`mailto:${site.email}`}>{site.email}</a>
+                <Link href="/" aria-label="Moneta home">moneta.</Link>
               </p>
             </div>
-            <p className="t-body text-muted">{footer.credit}</p>
+            <p className="t-body text-muted">Original design by <a href="https://lunisdesign.com" className="underline underline-offset-4 hover:opacity-70">Lunis</a>. All rights reserved.</p>
           </div>
         </div>
       </div>

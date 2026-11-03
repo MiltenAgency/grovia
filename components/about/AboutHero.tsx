@@ -40,7 +40,7 @@ export function AboutHero() {
                 playsInline
                 autoPlay
                 preload="auto"
-                aria-label="Grovia team at work"
+                aria-label="Illustrative scene of people planning together"
               />
             </div>
           </div>

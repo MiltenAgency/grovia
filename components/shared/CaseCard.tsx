@@ -13,7 +13,7 @@ export function CaseCard({ study }: { study: CaseStudy }) {
         <img src={study.cover} alt={study.coverAlt} className="size-full object-cover" />
         <div className="absolute inset-0 flex items-center justify-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={study.logo} alt={study.name} className="h-[35px] w-auto" />
+          <span className="t-h3 rounded-2xl bg-forest/75 px-6 py-3 text-center text-white">{study.name}</span>
         </div>
         <span className="absolute bottom-5 right-5 rounded-[49px] bg-black/30 px-2 py-1 t-small text-white">
           {study.year}

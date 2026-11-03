@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import { usePageReady } from "@/components/site/PageIntro";
 
 /**
  * Framer's own appear curve, duration and offsets, straight out of the
@@ -32,6 +33,7 @@ type Props = {
 export function Reveal({ children, delay = 0, className, as = "div", onMount = false, id }: Props) {
   const reduced = useReducedMotion();
   const narrow = useMediaQuery("(max-width: 809.98px)");
+  const ready = usePageReady();
   const M = motion[as];
 
   if (reduced) {
@@ -54,9 +56,9 @@ export function Reveal({ children, delay = 0, className, as = "div", onMount = f
       id={id}
       initial={initial}
       {...(onMount
-        ? { animate: settled }
+        ? { animate: ready ? settled : initial }
         : {
-            whileInView: settled,
+            whileInView: ready ? settled : initial,
             viewport: { once: true, amount: 0.05, margin: "0px 0px -60px 0px" },
           })}
       transition={transition}

@@ -5,18 +5,20 @@
   --font-display: "Albert Sans", "Albert Sans Placeholder", sans-serif;
   --font-body: "Geist", "Geist Placeholder", sans-serif;
 
-  /* Read off the export's computed styles. */
-  --color-paper: #f4f2ee; /* page ground */
-  --color-panel: #f0ece6; /* grouped-card ground, footer */
-  --color-panel-faq: #efece6;
-  --color-panel-warm: #ede9e6; /* about bento frames */
-  --color-ink: #000000;
-  --color-ink-soft: #1a1a1a;
-  --color-muted: #605f5f;
-  --color-faint: #aeaeae;
-  --color-rule: #e6e6e6;
-  --color-butter: #fef7af; /* accent pill / primary-on-dark button */
-  --color-flag: #e83043; /* the chart's "+30m" */
+  /* Moneta palette; original layout and typography tokens are preserved. */
+  --color-primary: #147D64;
+  --color-forest: #102C28;
+  --color-paper: #F7F9F5; /* page ground */
+  --color-panel: #E5F2EB; /* grouped-card ground, footer */
+  --color-panel-faq: #E5F2EB;
+  --color-panel-warm: #E5F2EB; /* about bento frames */
+  --color-ink: #172B26;
+  --color-ink-soft: #102C28;
+  --color-muted: #72837C;
+  --color-faint: #8A9B93;
+  --color-rule: #DDE6DE;
+  --color-butter: #C5A7F7; /* accent pill / primary-on-dark button */
+  --color-flag: #147D64; /* savings growth */
 
   --breakpoint-md: 810px;
   --breakpoint-lg: 1200px;
@@ -297,4 +299,53 @@ body {
     color: inherit;
     opacity: 0.5;
   }
+}
+
+/* Keep fixed navigation clear of in-page destinations. */
+section[id] { scroll-margin-top: 108px; }
+:where(a, button, [tabindex]):focus-visible { outline: 2px solid var(--color-primary); outline-offset: 5px; }
+:where(h1, h2, h3, h4, h5, h6) { text-wrap: balance; }
+p { text-wrap: pretty; }
+.skip-link { position: fixed; top: 12px; left: 12px; z-index: 50; transform: translateY(-160%); padding: 12px 16px; border-radius: 16px; background: white; }
+.skip-link:focus { transform: translateY(0); }
+
+/* Header refinements stay within the original floating pill. */
+.brandmark-link { transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1); }
+.brandmark-link:hover { transform: rotate(-5deg); }
+.brandmark-link:active { transform: scale(0.96); }
+.nav-menu-link { position: relative; color: var(--color-muted); transition: color 300ms cubic-bezier(0.22, 1, 0.36, 1); }
+.nav-menu-link::after { content: ""; position: absolute; inset: auto 0 2px; height: 2px; border-radius: 2px; background: var(--color-primary); transform: scaleX(0); transform-origin: left; transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1); }
+.nav-menu-link:hover, .nav-menu-link:focus-visible { color: var(--color-primary); }
+.nav-menu-link:hover::after, .nav-menu-link:focus-visible::after { transform: scaleX(1); }
+
+/* Independent floating paths preserve the cards' resting angles and layers. */
+@keyframes hero-balance-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(2deg); }
+  50% { transform: translate3d(3px, -8px, 0) rotate(1deg); }
+}
+@keyframes hero-savings-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-3deg); }
+  50% { transform: translate3d(-4px, 11px, 0) rotate(-1.5deg); }
+}
+@keyframes hero-chart-enter {
+  from { transform: scaleY(0.12); opacity: 0; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+.hero-balance-float { animation: hero-balance-float 8s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+.hero-savings-float { animation: hero-savings-float 6s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+.hero-chart-bar { transform-origin: bottom; animation: hero-chart-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+[data-page-ready="false"] :is(.hero-balance-float, .hero-savings-float, .hero-chart-bar) { animation-play-state: paused; }
+
+@keyframes intro-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes intro-brandmark { from { transform: translateY(8px) scale(0.92); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+@keyframes intro-failsafe { to { visibility: hidden; pointer-events: none; } }
+.intro-progress { animation: intro-progress 900ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.intro-brandmark { animation: intro-brandmark 600ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+/* Server HTML must remain usable even if hydration is unavailable. */
+.page-intro { animation: intro-failsafe 0s 4s forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-balance-float, .hero-savings-float, .hero-chart-bar, .intro-progress, .intro-brandmark { animation: none; }
+  .brandmark-link, .nav-menu-link, .nav-menu-link::after { transition: none; }
+  .brandmark-link:hover { transform: none; }
 }

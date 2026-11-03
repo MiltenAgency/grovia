@@ -17,35 +17,16 @@ function CustomerRow({
 }) {
   return (
     <div
-      className={`relative flex w-full items-center gap-3 rounded-2xl p-4 ${first ? "bg-butter" : ""}`}
+      className={`relative flex w-full items-center gap-3 rounded-2xl p-4 ${first ? "bg-panel" : ""}`}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={row.avatar}
-        alt=""
-        width={32}
-        height={32}
-        className="size-8 shrink-0 rounded-full object-cover"
-      />
+      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/80">
+        <img src={`/assets/moneta/icon-${row.icon}.svg`} alt="" width={24} height={24} />
+      </span>
       <div className="flex flex-col justify-center gap-0.5">
-        <p className="t-small font-medium">{row.name}</p>
+        <p className={first ? "t-h5 font-medium" : "t-small font-medium"}>{row.name}</p>
         <p className="t-tiny text-muted">{row.org}</p>
       </div>
-      {first && (
-        <div className="ml-auto flex items-center gap-3">
-          <div className="flex items-center" style={{ gap: 3.91589 }}>
-            {(["edit", "star", "comment"] as const).map((n) => (
-              <span key={n} className="flex size-9 items-center justify-center">
-                <Icon name={n} size={17} />
-              </span>
-            ))}
-          </div>
-          <span className="block h-[15px] w-px bg-rule" />
-          <span className="flex size-9 items-center justify-center">
-            <Icon name="more" size={17} />
-          </span>
-        </div>
-      )}
+      {row.amount && <span className="ml-auto t-small font-medium">{row.amount}</span>}
     </div>
   );
 }
@@ -54,7 +35,7 @@ export function HeroWidget() {
   return (
     <div className="absolute left-0 top-0 h-[416px] w-[510px] origin-top-left">
       <div
-        className="ring-white absolute flex flex-col rounded-[20px] bg-white/60"
+        className="hero-balance-float ring-white absolute flex flex-col rounded-[20px] bg-white/60"
         style={{
           left: 6,
           top: 8,
@@ -99,7 +80,7 @@ export function HeroWidget() {
       </div>
 
       <div
-        className="ring-white absolute flex flex-col items-center justify-center rounded-[20px] bg-white/40"
+        className="hero-savings-float ring-white absolute flex flex-col items-center justify-center rounded-[20px] bg-white/40"
         style={{
           left: 219,
           top: 176,
@@ -132,10 +113,10 @@ export function HeroWidget() {
               className="flex flex-col items-center"
               style={{ gap: 14.5066 }}
             >
-              <div className="flex w-[18px] flex-col overflow-hidden rounded">
-                <span style={{ height: bar[0], background: "rgb(132, 230, 246)" }} />
-                <span style={{ height: bar[1], background: "rgb(247, 164, 158)" }} />
-                <span style={{ height: bar[2], background: "rgb(254, 205, 26)" }} />
+              <div className="hero-chart-bar flex w-[18px] flex-col overflow-hidden rounded" style={{ animationDelay: `${0.35 + i * 0.08}s` }}>
+                <span style={{ height: bar[0], background: "#E5F2EB" }} />
+                <span style={{ height: bar[1], background: "#C5A7F7" }} />
+                <span style={{ height: bar[2], background: "#147D64" }} />
               </div>
               <p className="t-tiny font-medium">{heroChart.days[i]}</p>
             </div>

@@ -22,23 +22,23 @@ export function Navbar() {
       <nav
         className={clsx(
           "relative flex h-[60px] items-center rounded-[58px] bg-white px-3 py-2",
-          "max-md:w-full max-md:max-w-[342px] max-md:justify-between md:gap-14",
+          "max-md:w-full max-md:max-w-[342px] max-md:justify-between md:gap-8 lg:gap-12",
         )}
         style={{ boxShadow: "rgba(224, 215, 198, 0.5) 0px 1px 20px 0px" }}
       >
-        <div className="flex w-[140px] items-center gap-2">
-          <Link href="/" aria-label={site.name}>
+        <div className="flex w-20 items-center gap-2">
+          <Link href="/" aria-label={`${site.name} home`} className="brandmark-link rounded-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={site.logo} alt={site.name} width={105} height={35} />
+            <img src={site.logo} alt="" width={44} height={44} />
           </Link>
         </div>
 
-        <ul className="hidden items-center gap-1 px-2 md:flex">
+        <ul className="hidden items-center gap-4 px-2 md:flex">
           {navLinks.map((l) => (
             <li key={l.label}>
               <Link
                 href={l.href}
-                className="block p-1 t-body font-medium transition-opacity hover:opacity-70"
+                className="nav-menu-link block whitespace-nowrap py-2 t-small font-medium"
               >
                 {l.label}
               </Link>
@@ -48,7 +48,7 @@ export function Navbar() {
 
         <Link
           href={navCta.href}
-          className="hidden items-center gap-3 rounded-[32px] bg-ink py-2 pl-4 pr-2 t-btn text-white transition-opacity hover:opacity-80 md:inline-flex"
+          className="hidden items-center gap-3 rounded-[32px] bg-primary py-2 pl-4 pr-2 t-btn text-white transition-opacity hover:opacity-80 md:inline-flex"
         >
           <span>{navCta.label}</span>
           <span className="flex size-7 items-center justify-center rounded-full bg-white text-ink">
@@ -61,7 +61,7 @@ export function Navbar() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="inline-flex items-center gap-3 rounded-[32px] bg-ink py-2 pl-4 pr-2 t-btn text-white md:hidden"
+          className="inline-flex items-center gap-3 rounded-[32px] bg-primary py-2 pl-4 pr-2 t-btn text-white md:hidden"
         >
           <span>Menu</span>
           <span className="flex size-7 items-center justify-center rounded-full bg-white text-ink">
@@ -75,7 +75,7 @@ export function Navbar() {
           className="absolute inset-x-0 top-[68px] flex flex-col items-center gap-1 rounded-[24px] bg-white px-4 py-4 md:hidden"
         >
           {[...navLinks, navCta].map((l) => (
-            <Link key={l.label} href={l.href} className="p-1 t-body font-medium">
+            <Link key={l.label} href={l.href} onClick={() => setOpen(false)} className="p-1 t-body font-medium">
               {l.label}
             </Link>
           ))}

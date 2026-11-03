@@ -19,7 +19,7 @@ export function FaqSection() {
     setOpen((v) => (v.includes(i) ? v.filter((n) => n !== i) : [...v, i]));
 
   return (
-    <section className="flex justify-center">
+    <section id="faq" className="flex justify-center">
       <div className="wrap flex flex-col items-start gap-10 py-20 lg:flex-row lg:justify-between lg:gap-0">
         <div className="flex w-full flex-col items-start gap-5 md:max-w-[600px] lg:w-[343px]">
           <h2 className="t-h2">{faq.heading}</h2>
