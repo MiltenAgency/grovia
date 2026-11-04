@@ -2,6 +2,7 @@ import { aboutHero } from "@/lib/content/about";
 import { Rating } from "@/components/ui/Rating";
 import { WordHeading } from "@/components/ui/WordHeading";
 import { Reveal } from "@/components/motions/Reveal";
+import { AmbientVideo } from "@/components/motions/AmbientVideo";
 
 /**
  * A word-by-word heading (the export animates each word separately), then the
@@ -32,14 +33,10 @@ export function AboutHero() {
                 boxShadow: "rgba(0, 0, 0, 0.25) 4px 6px 15px 0px",
               }}
             >
-              <video
+              <AmbientVideo
                 className="size-full rounded-2xl object-cover md:rounded-3xl"
                 src={aboutHero.video}
-                loop
-                muted
-                playsInline
-                autoPlay
-                preload="auto"
+                poster={aboutHero.videoPoster}
                 aria-label="Illustrative scene of people planning together"
               />
             </div>

@@ -1,89 +1,132 @@
 "use client";
 
-import { useState } from "react";
-import clsx from "clsx";
+import { memo, useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { featurePanelBackdrop, featureTabs, featuresIntro } from "@/lib/content/home";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motions/Reveal";
 
-/**
- * Four tabs over one panel. The art frame is a fixed 522×389 window that clips
- * whatever the active tab drops into it at the offsets the original uses.
- */
+const FeaturePanel = memo(function FeaturePanel({
+  tab,
+  active,
+}: {
+  tab: (typeof featureTabs)[number];
+  active: boolean;
+}) {
+  const art = useRef<HTMLDivElement>(null);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+
+  useEffect(() => {
+    let disposed = false;
+    const images = Array.from(art.current?.querySelectorAll("img") ?? []);
+    // decode() also handles cached images and avoids revealing undecoded artwork.
+    Promise.all(images.map((image) => image.decode())).then(
+      () => { if (!disposed) setStatus("ready"); },
+      () => { if (!disposed) setStatus("error"); },
+    );
+    return () => { disposed = true; };
+  }, []);
+
+  return (
+    <div
+      role="tabpanel"
+      id={`panel-${tab.id}`}
+      aria-labelledby={`tab-${tab.id}`}
+      aria-hidden={!active}
+      ref={(element) => { if (element) element.inert = !active; }}
+      tabIndex={active ? 0 : -1}
+      data-active={active}
+      className="feature-panel"
+    >
+      <div ref={art} className="feature-art" data-status={status} aria-busy={status === "loading"}>
+        <img src={featurePanelBackdrop} alt="" className="absolute inset-0 size-full object-cover" decoding="async" />
+        {tab.art.map((image) => (
+          <img
+            key={image.src}
+            src={image.src}
+            alt=""
+            decoding="async"
+            className="feature-art-image absolute max-w-none"
+            style={{
+              left: `${(image.x / 522) * 100}%`,
+              top: `${(image.y / 389) * 100}%`,
+              width: `${(image.w / 522) * 100}%`,
+              height: `${(image.h / 389) * 100}%`,
+              borderRadius: image.r,
+            }}
+          />
+        ))}
+        {status !== "ready" && (
+          <div className="feature-loading" role="status">
+            {status === "error" ? (
+              <p className="body-6 text-muted">Preview unavailable. You can still explore the details.</p>
+            ) : (
+              <>
+                <span className="sr-only">Loading {tab.tab.toLowerCase()} preview</span>
+                <div className="preview-skeleton" aria-hidden="true">
+                  <span /><span /><span />
+                  <div className="preview-skeleton-bars"><i /><i /><i /><i /></div>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+      <div className="feature-copy">
+        <span className="caption-4 rounded-full bg-butter px-3 py-2">{tab.eyebrow}</span>
+        <h3 className="t-h3">{tab.heading}</h3>
+        <p className="t-body text-muted">{tab.body}</p>
+      </div>
+    </div>
+  );
+});
+
+/** Mounted, overlapping panels keep their height and can reverse mid-transition. */
 export function FeatureSection() {
   const [active, setActive] = useState(0);
-  const tab = featureTabs[active];
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  function onKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    let next: number;
+    switch (event.key) {
+      case "ArrowRight": next = (index + 1) % featureTabs.length; break;
+      case "ArrowLeft": next = (index - 1 + featureTabs.length) % featureTabs.length; break;
+      case "Home": next = 0; break;
+      case "End": next = featureTabs.length - 1; break;
+      default: return;
+    }
+    event.preventDefault();
+    setActive(next);
+    tabs.current[next]?.focus();
+  }
 
   return (
     <section id="feature" className="flex justify-center">
       <div className="wrap flex flex-col items-center gap-10 py-20">
         <SectionHeading heading={featuresIntro.heading} sub={featuresIntro.sub} />
-
         <Reveal delay={0.1} className="flex w-full flex-col items-center gap-3">
-          <div
-            className="flex w-full flex-col gap-2 rounded-3xl bg-panel p-2 lg:flex-row lg:justify-center lg:rounded-[40px]"
-            role="tablist"
-            aria-label={featuresIntro.heading}
-          >
-            {featureTabs.map((t, i) => (
+          <div className="feature-tabs" role="tablist" aria-label={featuresIntro.heading}>
+            {featureTabs.map((tab, index) => (
               <button
-                key={t.id}
+                key={tab.id}
+                ref={(element) => { tabs.current[index] = element; }}
                 role="tab"
                 type="button"
-                id={`tab-${t.id}`}
-                aria-selected={active === i}
-                aria-controls={`panel-${t.id}`}
-                onClick={() => setActive(i)}
-                className={clsx(
-                  "relative flex shrink-0 items-center justify-center gap-2 rounded-[32px] p-4 transition-colors lg:w-[250px]",
-                  active === i ? "bg-white/80" : "bg-transparent opacity-50",
-                )}
+                id={`tab-${tab.id}`}
+                aria-selected={active === index}
+                aria-controls={`panel-${tab.id}`}
+                tabIndex={active === index ? 0 : -1}
+                onClick={() => setActive(index)}
+                onKeyDown={(event) => onKeyDown(event, index)}
+                className="feature-tab title-4"
               >
-                <Icon name={t.icon} size={20} />
-                <span className="t-lead whitespace-nowrap">{t.tab}</span>
+                <Icon name={tab.icon} size={20} />
+                <span>{tab.tab}</span>
               </button>
             ))}
           </div>
-
-          <div
-            role="tabpanel"
-            id={`panel-${tab.id}`}
-            aria-labelledby={`tab-${tab.id}`}
-            className="flex w-full flex-col items-center gap-8 rounded-3xl bg-white/60 p-2 pb-10 lg:flex-row lg:items-center lg:gap-10 lg:py-2 lg:pr-10"
-          >
-            <div className="relative aspect-[151/100] w-full shrink-0 overflow-hidden rounded-[20px] lg:aspect-auto lg:h-[389px] lg:w-[522px]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={featurePanelBackdrop}
-                alt=""
-                className="size-full rounded-[20px] object-cover"
-              />
-              {tab.art.map((a) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={a.src}
-                  src={a.src}
-                  alt=""
-                  className="absolute max-w-none"
-                  style={{
-                    left: `${(a.x / 522) * 100}%`,
-                    top: `${(a.y / 389) * 100}%`,
-                    width: `${(a.w / 522) * 100}%`,
-                    height: `${(a.h / 389) * 100}%`,
-                    borderRadius: a.r,
-                  }}
-                />
-              ))}
-            </div>
-
-            <div className="flex flex-col items-start gap-4 max-lg:px-6 lg:w-[430px] lg:gap-6">
-              <span className="rounded-[62px] bg-butter px-3 py-2 t-tiny font-medium uppercase">
-                {tab.eyebrow}
-              </span>
-              <h3 className="t-h3">{tab.heading}</h3>
-              <p className="t-body text-muted">{tab.body}</p>
-            </div>
+          <div className="feature-panels">
+            {featureTabs.map((tab, index) => <FeaturePanel key={tab.id} tab={tab} active={active === index} />)}
           </div>
         </Reveal>
       </div>

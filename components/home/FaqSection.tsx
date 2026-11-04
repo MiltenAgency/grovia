@@ -45,7 +45,7 @@ export function FaqSection() {
                     <span className="pr-3">{item.q}</span>
                     <span
                       className={clsx(
-                        "shrink-0 transition-transform duration-300",
+                        "faq-icon shrink-0",
                         isOpen && "rotate-45",
                       )}
                     >
@@ -56,7 +56,7 @@ export function FaqSection() {
                 <div
                   id={`faq-${i}`}
                   hidden={!isOpen}
-                  className="pt-4 t-body text-muted"
+                  className="faq-answer pt-4 t-body text-muted"
                 >
                   {item.a}
                 </div>

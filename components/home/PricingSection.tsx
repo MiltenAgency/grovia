@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import clsx from "clsx";
 import { pricing, pricingCtaHref } from "@/lib/content/home";
 import { Button } from "@/components/ui/Button";
@@ -16,6 +16,21 @@ import { Reveal } from "@/components/motions/Reveal";
 export function PricingSection() {
   const [active, setActive] = useState(0);
   const plan = pricing.plans[active];
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  function onKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    let next: number;
+    switch (event.key) {
+      case "ArrowDown": next = (index + 1) % pricing.plans.length; break;
+      case "ArrowUp": next = (index - 1 + pricing.plans.length) % pricing.plans.length; break;
+      case "Home": next = 0; break;
+      case "End": next = pricing.plans.length - 1; break;
+      default: return;
+    }
+    event.preventDefault();
+    setActive(next);
+    tabs.current[next]?.focus();
+  }
 
   return (
     <section id="pricing" className="bleed flex justify-center">
@@ -35,6 +50,7 @@ export function PricingSection() {
               <div
                 className="flex flex-col gap-2 rounded-3xl bg-black/30 p-2"
                 role="tablist"
+                aria-orientation="vertical"
                 aria-label={pricing.heading}
               >
                 {pricing.plans.map((p, i) => (
@@ -42,11 +58,15 @@ export function PricingSection() {
                     key={p.id}
                     type="button"
                     role="tab"
+                    id={`plan-tab-${p.id}`}
+                    ref={(element) => { tabs.current[i] = element; }}
+                    tabIndex={active === i ? 0 : -1}
                     aria-selected={active === i}
                     aria-controls="plan-card"
                     onClick={() => setActive(i)}
+                    onKeyDown={(event) => onKeyDown(event, i)}
                     className={clsx(
-                      "flex items-center justify-between rounded-2xl px-5 py-4 text-left transition-opacity",
+                      "plan-tab flex items-center justify-between rounded-2xl px-5 py-4 text-left",
                       active === i ? "bg-white/10" : "bg-white/10 opacity-60",
                     )}
                     style={
@@ -75,8 +95,12 @@ export function PricingSection() {
           </Reveal>
 
           <div
+            key={plan.id}
             id="plan-card"
-            className="flex w-full flex-col items-start gap-10 rounded-3xl bg-white/10 p-8 md:flex-row md:items-center lg:w-[425px] lg:flex-col lg:items-start"
+            role="tabpanel"
+            aria-labelledby={`plan-tab-${plan.id}`}
+            tabIndex={0}
+            className="plan-panel flex w-full flex-col items-start gap-10 rounded-3xl bg-white/10 p-8 md:flex-row md:items-center lg:w-[425px] lg:flex-col lg:items-start"
           >
             <div className="flex flex-col items-start gap-6 md:flex-1 lg:flex-none">
               <div className="flex items-center gap-3">

@@ -3,7 +3,6 @@ import "./globals.css";
 import { site } from "@/lib/content/site";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
-import { LenisProvider } from "@/components/LenisProvider";
 import { PageIntro } from "@/components/site/PageIntro";
 
 export const metadata: Metadata = {
@@ -22,7 +21,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <LenisProvider />
         <PageIntro>
         <a href="#main-content" className="skip-link">Skip to content</a>
         <Navbar />

@@ -6,7 +6,7 @@ import { Icon } from "./Icon";
 type Variant = "black" | "yellow" | "outline" | "link";
 
 const shell =
-  "relative inline-flex items-center justify-center t-btn transition-opacity hover:opacity-80";
+  "action-button relative inline-flex items-center justify-center t-btn";
 
 const variants: Record<Variant, string> = {
   black: "gap-3 rounded-[32px] bg-primary py-2 pl-4 pr-2 text-white",
@@ -21,7 +21,7 @@ function ArrowDisc({ variant, flip }: { variant: Variant; flip?: boolean }) {
   return (
     <span
       className={clsx(
-        "flex size-7 shrink-0 items-center justify-center rounded-full",
+        "action-arrow flex size-7 shrink-0 items-center justify-center rounded-full",
         variant === "black" && "bg-white text-ink",
         variant === "yellow" && "bg-ink text-white",
       )}

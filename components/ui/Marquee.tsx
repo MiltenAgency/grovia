@@ -1,5 +1,31 @@
+"use client";
+
 import clsx from "clsx";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+
+/** Stop decorative loops offscreen and in background tabs, without a JS frame loop. */
+function useMarqueeVisibility() {
+  const ref = useRef<HTMLUListElement>(null);
+  useEffect(() => {
+    const track = ref.current;
+    const viewport = track?.parentElement;
+    if (!track || !viewport) return;
+    let visible = false;
+    const update = () => { track.dataset.running = String(visible && !document.hidden); };
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      update();
+    });
+    observer.observe(viewport);
+    document.addEventListener("visibilitychange", update);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", update);
+      delete track.dataset.running;
+    };
+  }, []);
+  return ref;
+}
 
 /**
  * Horizontal ticker. Each item carries its own trailing margin so the track is
@@ -20,6 +46,7 @@ export function MarqueeX({
   cycle: number;
   className?: string;
 }) {
+  const ref = useMarqueeVisibility();
   return (
     <div
       className={clsx("w-full overflow-hidden", className)}
@@ -31,6 +58,7 @@ export function MarqueeX({
       }}
     >
       <ul
+        ref={ref}
         className="marquee-x flex w-max items-center"
         style={{ "--marquee-duration": `${cycle / speed}s` } as React.CSSProperties}
       >
@@ -60,10 +88,12 @@ export function MarqueeY({
   reverse?: boolean;
   className?: string;
 }) {
+  const ref = useMarqueeVisibility();
   const copies = [0, 1, 2, 3];
   return (
     <div className={clsx("overflow-hidden", className)}>
       <ul
+        ref={ref}
         className={clsx("flex h-max flex-col", reverse ? "marquee-y-reverse" : "marquee-y")}
         style={{ "--marquee-duration": `${(cycle * 2) / speed}s` } as React.CSSProperties}
       >

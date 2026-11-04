@@ -49,9 +49,9 @@ export function CaseStudyArticle({
 
             <div className="flex flex-col gap-6 rounded-[20px] bg-white/60 p-6 md:flex-row md:items-center md:justify-between md:gap-0 md:p-8">
               <div className="flex flex-col items-start gap-4 md:w-[68%]">
-                <h2 className="t-h2">
+                <h1 className="t-h2">
                   <span>{study.name}</span>
-                </h2>
+                </h1>
                 <p className="t-lead text-muted">{study.excerpt}</p>
               </div>
 

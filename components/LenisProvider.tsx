@@ -13,10 +13,17 @@ export function LenisProvider() {
     let frame = 0;
     const raf = (time: number) => {
       lenis.raf(time);
+      frame = lenis.isScrolling === "smooth" ? requestAnimationFrame(raf) : 0;
+    };
+    const wake = () => {
+      if (frame) return;
+      // Reset the clock before a new gesture, so idle time never advances it.
+      lenis.raf(performance.now());
       frame = requestAnimationFrame(raf);
     };
-    frame = requestAnimationFrame(raf);
+    const unsubscribe = lenis.on("virtual-scroll", wake);
     return () => {
+      unsubscribe();
       cancelAnimationFrame(frame);
       lenis.destroy();
     };

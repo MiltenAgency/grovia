@@ -2,6 +2,7 @@ import { closingCta } from "@/lib/content/site";
 import { Rating } from "@/components/ui/Rating";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/motions/Reveal";
+import { AnimatedHeadline } from "@/components/motions/AnimatedHeadline";
 
 /** Retain the original photographic band, two columns, and reveal animation. */
 export function ClosingCta() {
@@ -11,16 +12,16 @@ export function ClosingCta() {
         <img src={closingCta.background} alt="" className="absolute inset-0 size-full object-cover" />
         <div className="absolute inset-0 bg-forest/[0.78]" />
         <div className="bleed-inner relative flex flex-col items-start gap-10 py-16 md:py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
-          <Reveal className="flex flex-col justify-between gap-10 self-stretch lg:w-[356px]">
+          <div className="flex flex-col justify-between gap-10 self-stretch lg:w-[356px]">
             <div className="flex flex-col gap-5">
-              <h2 className="t-h2 text-white">{closingCta.heading}</h2>
+              <AnimatedHeadline text={closingCta.heading} className="t-h2 text-white" />
               <p className="t-lead text-white/80">{closingCta.sub}</p>
             </div>
-            <div className="flex flex-col items-start gap-8">
+            <Reveal className="flex flex-col items-start gap-8">
               <Button href={closingCta.cta.href} variant="yellow">{closingCta.cta.label}</Button>
               <Rating tone="white" />
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
           <div className="flex w-full flex-col items-start gap-5 rounded-3xl bg-black/30 p-8 max-md:px-6 lg:w-[600px]">
             <p className="t-small text-white/60">A LITTLE TODAY. MORE POSSIBILITY TOMORROW.</p>
             <h3 className="t-h3 text-white">Your money. Made simple.</h3>
