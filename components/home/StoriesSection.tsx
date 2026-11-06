@@ -14,7 +14,7 @@ export function StoriesSection() {
     .filter((c): c is (typeof caseStudies)[number] => Boolean(c));
 
   return (
-    <section className="flex justify-center">
+    <section id="stories" className="flex justify-center">
       <div className="wrap flex flex-col items-center gap-16 py-20 md:gap-10 lg:gap-16">
         <Reveal className="flex w-full flex-col items-center gap-10 md:gap-8 lg:gap-10">
           <SectionHeading heading={successStories.heading} sub={successStories.sub} />

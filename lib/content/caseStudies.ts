@@ -27,8 +27,8 @@ export const caseStudies: CaseStudy[] = [
     "name": "Everyday clarity",
     "year": "Illustrative story",
     "excerpt": "A calmer month starts with knowing where your money goes.",
-    "cover": "/assets/img/ec4732f3e7b3b95b.webp",
-    "coverAlt": "Illustrative scene for everyday clarity",
+    "cover": "/assets/moneta/story-clarity.jpg",
+    "coverAlt": "Everyday clarity: mindful daily spending with ceramic coffee cup, receipt, and debit card",
     "logo": "/assets/moneta/wordmark.svg",
     "author": {
       "name": "Talia Smith",
@@ -69,8 +69,8 @@ export const caseStudies: CaseStudy[] = [
     "name": "Room for the unexpected",
     "year": "Illustrative story",
     "excerpt": "Picture an emergency fund that grows a little at a time.",
-    "cover": "/assets/img/e5aaf9a895c0f275.webp",
-    "coverAlt": "Illustrative scene for room for the unexpected",
+    "cover": "/assets/moneta/story-unexpected.jpg",
+    "coverAlt": "Room for the unexpected: savings piggy bank vault with growing sprout and protective umbrella",
     "logo": "/assets/moneta/wordmark.svg",
     "author": {
       "name": "Jordan Johnson",
@@ -104,8 +104,8 @@ export const caseStudies: CaseStudy[] = [
     "name": "Somewhere new",
     "year": "Illustrative story",
     "excerpt": "Small steps toward a trip worth looking forward to.",
-    "cover": "/assets/img/3966f5caca770a0c.webp",
-    "coverAlt": "Illustrative scene for somewhere new",
+    "cover": "/assets/moneta/story-travel.jpg",
+    "coverAlt": "Somewhere new: travel fund luggage, ceramic airplane, and passport",
     "logo": "/assets/moneta/wordmark.svg",
     "author": {
       "name": "Alex Morgan",
@@ -139,8 +139,8 @@ export const caseStudies: CaseStudy[] = [
     "name": "The little recurring things",
     "year": "Illustrative story",
     "excerpt": "A clearer view of the subscriptions in everyday life.",
-    "cover": "/assets/img/2fc347463d5ac01a.webp",
-    "coverAlt": "Illustrative scene for the little recurring things",
+    "cover": "/assets/moneta/story-recurring.jpg",
+    "coverAlt": "The little recurring things: savings vault with progress bar chart, card, and coins",
     "logo": "/assets/moneta/wordmark.svg",
     "author": {
       "name": "Samuel Torres",

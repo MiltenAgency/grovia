@@ -7,28 +7,32 @@ import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-/** Reveal after the hero; retrace the same motion when returning toward it. */
+/** Reveal with a clear, graceful upward fade from the bottom as the user scrolls into it. */
 export function DashboardReveal({ children, className }: { children: ReactNode; className?: string }) {
   const root = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     const element = root.current!;
-    const hero = document.querySelector("[data-moneta-hero]");
     const media = gsap.matchMedia();
     media.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.fromTo(element, { x: -48, opacity: 0 }, {
-        x: 0, opacity: 1, ease: "none",
-        scrollTrigger: {
-          trigger: hero ?? element,
-          start: hero ? "bottom 80px" : "top 80%",
-          end: "+=96",
-          scrub: 0.3,
-          invalidateOnRefresh: true,
-        },
-      });
+      gsap.fromTo(
+        element,
+        { y: 90, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.95,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: element,
+            start: "top bottom+=60", // Starts early so it rises up into view seamlessly
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
     });
     return () => media.revert();
   }, { scope: root });
 
-  return <div ref={root} className={`motion-safe:opacity-0 ${className ?? ""}`}>{children}</div>;
+  return <div ref={root} className={`will-change-transform ${className ?? ""}`}>{children}</div>;
 }

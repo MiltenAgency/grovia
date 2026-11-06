@@ -24,7 +24,10 @@ function armPose(x: number, y: number) {
   const elbowX = ARM.upper * Math.cos(shoulder);
   const elbowY = ARM.upper * Math.sin(shoulder);
   const forearm = Math.atan2(dy - elbowY, dx - elbowX) - shoulder;
-  return { shoulder: shoulder * 180 / Math.PI, elbow: forearm * 180 / Math.PI };
+  return {
+    shoulder: Math.round((shoulder * 180 / Math.PI) * 100) / 100,
+    elbow: Math.round((forearm * 180 / Math.PI) * 100) / 100,
+  };
 }
 
 const IDLE_ARM = armPose(480, 70);

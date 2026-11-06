@@ -26,12 +26,10 @@ export function ProcessRail() {
 
     media.add({
       desktop: "(min-width: 810px)",
-      tall: "(min-height: 850px)",
       motion: "(prefers-reduced-motion: no-preference)",
     }, (context) => {
       if (!context.conditions?.motion) return;
       const desktop = Boolean(context.conditions.desktop);
-      const pinned = desktop && Boolean(context.conditions.tall);
       element.dataset.enhanced = "true";
       let thresholds: number[] = [];
       let distance = 0;
@@ -54,38 +52,34 @@ export function ProcessRail() {
       gsap.set(fill, { scaleX: desktop ? 0 : 1, scaleY: desktop ? 1 : 0, transformOrigin: "0 0" });
       gsap.set(bead, { x: 0, y: 0 });
 
-      const activeSteps = items.map(() => false);
-      const entrances = items.map((item) => {
-        const number = item.querySelector("[data-rail-number]");
-        const image = item.querySelector("[data-rail-image]");
-        const marker = item.querySelector(".process-rail-marker-fill");
-        item.dataset.reached = "false";
-        const entrance = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } })
-          .fromTo(marker, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3 }, 0)
-          .fromTo(number, { yPercent: 110, rotationX: -35 }, { yPercent: 0, rotationX: 0, duration: 0.55 }, 0.04)
-          .fromTo(image, { y: 20, scale: 0.96, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.65 }, 0.12);
-        return entrance;
-      });
+      // Staggered entrance: all 3 steps reveal smoothly as the section enters the viewport
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: stage,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+        defaults: { ease: "power3.out" },
+      })
+        .from(stage.querySelector(".process-rail-heading"), { y: 24, opacity: 0, duration: 0.7 })
+        .from(track, { scaleX: 0, transformOrigin: "0 50%", opacity: 0, duration: 0.6 }, "-=0.3")
+        .from(items, { y: 36, opacity: 0, duration: 0.75, stagger: 0.14 }, "-=0.4");
 
+      // The line fill and bead scrub smoothly as the user scrolls through the steps
       const rail = gsap.timeline({
         scrollTrigger: {
           trigger: stage,
-          start: pinned ? "top 112px" : "top 75%",
-          end: pinned ? () => `+=${Math.max(600, window.innerHeight * 0.85)}` : "bottom 60%",
-          pin: pinned,
-          scrub: 0.55,
+          start: "top 72%",
+          end: "bottom 70%",
+          scrub: 0.5,
           invalidateOnRefresh: true,
           onRefreshInit: measure,
         },
         onUpdate() {
           const progress = this.progress();
           items.forEach((item, index) => {
-            const active = progress >= thresholds[index];
-            if (active === activeSteps[index]) return;
-            activeSteps[index] = active;
+            const active = progress >= (thresholds[index] ?? 0);
             item.dataset.reached = String(active);
-            if (active) entrances[index].play();
-            else entrances[index].reverse();
           });
         },
       });
