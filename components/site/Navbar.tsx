@@ -50,6 +50,7 @@ export function Navbar() {
         }}
         className={clsx(
           "relative flex h-[60px] items-center rounded-[58px] bg-white px-3 py-2",
+          pathname === "/" && "vault-home-nav",
           "max-md:w-full max-md:max-w-[342px] max-md:justify-between md:gap-8 lg:gap-12",
         )}
         style={{ boxShadow: "rgba(224, 215, 198, 0.5) 0px 1px 20px 0px" }}

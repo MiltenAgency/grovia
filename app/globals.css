@@ -633,3 +633,69 @@ p { text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) {
   .page-intro, .moneta-hero .hero-balance-card, .moneta-hero .hero-savings-card { transition: none; }
 }
+
+/* The dashboard enters once from the left as it reaches the viewport. */
+@keyframes content-enter-left {
+  from { opacity: 0; transform: translate3d(-64px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal="entering"][data-reveal-direction="left"] {
+    animation: content-enter-left 1s cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0s) both;
+  }
+}
+
+/* Shared tactile surfaces: fixed layout, shallow perspective, and layered artwork. */
+.dashboard-preview, .process-card, .feature-panels {
+  transition: transform 550ms cubic-bezier(.22, 1, .36, 1);
+  transform: perspective(1200px) rotateX(0deg) rotateY(0deg);
+}
+.dashboard-preview > img { transition: transform 650ms cubic-bezier(.22, 1, .36, 1); }
+.process-card { position: relative; isolation: isolate; }
+.process-card::after, .dashboard-preview::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border-radius: inherit; opacity: 0; z-index: -1;
+  box-shadow: 0 20px 40px -24px rgb(16 44 40 / 30%);
+  transition: opacity 450ms cubic-bezier(.22, 1, .36, 1);
+}
+.process-card .step-preview-image { transition: transform 650ms cubic-bezier(.22, 1, .36, 1); }
+.process-card .step-preview { transition: transform 650ms cubic-bezier(.22, 1, .36, 1); }
+.process-card h3 { transition: transform 550ms cubic-bezier(.22, 1, .36, 1); }
+.feature-panel {
+  transform: translate3d(24px, 0, 0) scale(.985);
+  transition: opacity 350ms cubic-bezier(.22, 1, .36, 1), transform 550ms cubic-bezier(.22, 1, .36, 1), visibility 0s 550ms;
+}
+.feature-panel[data-active="true"] { transform: translate3d(0, 0, 0) scale(1); }
+.feature-copy > * {
+  opacity: 0; transform: translate3d(16px, 0, 0);
+  transition: opacity 250ms cubic-bezier(.22, 1, .36, 1), transform 450ms cubic-bezier(.22, 1, .36, 1);
+}
+.feature-panel[data-active="true"] .feature-copy > * { opacity: 1; transform: translate3d(0, 0, 0); }
+.feature-panel[data-active="true"] .feature-copy > :nth-child(2) { transition-delay: 50ms; }
+.feature-panel[data-active="true"] .feature-copy > :nth-child(3) { transition-delay: 100ms; }
+.feature-art-image { transform: translate3d(0, 0, 0) scale(1); transition: opacity 300ms cubic-bezier(.22, 1, .36, 1), transform 650ms cubic-bezier(.22, 1, .36, 1); }
+.feature-panel[data-active="false"] .feature-art-image { transform: translate3d(0, 12px, 0) scale(.97); }
+@media (prefers-reduced-motion: no-preference) {
+  .dashboard-reveal[data-reveal="entering"][data-reveal-direction="left"] { animation-duration: 500ms; }
+  .process-card:focus-visible { transform: perspective(1200px) translateY(-8px); }
+  .process-card:focus-visible .step-preview-image { transform: translateY(-8px) scale(1.025); }
+  .feature-tab:focus-visible { transform: translateY(-2px); }
+  @media (hover: hover) and (pointer: fine) {
+    [data-hover-surface]:hover { transform: perspective(1200px) translateY(-6px) rotateX(var(--surface-x, 0deg)) rotateY(var(--surface-y, 0deg)); }
+    .dashboard-preview:hover > img { transform: scale(1.015); }
+    .process-card:hover { transform: perspective(1200px) translateY(-8px) rotateX(var(--surface-x, 0deg)) rotateY(var(--surface-y, 0deg)); }
+    .process-card:hover::after, .dashboard-preview:hover::after { opacity: 1; }
+    .process-card:hover .step-preview { transform: translateY(-2px); }
+    .process-card:hover .step-preview-image { transform: translateY(-8px) scale(1.025); }
+    .process-card:hover h3 { transform: translateX(3px); }
+    .feature-panels:hover .feature-panel[data-active="true"] .feature-art-image { transform: translateY(-4px) scale(1.025); }
+    .feature-tab:hover { transform: translateY(-2px); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-preview, .dashboard-preview > img, .process-card::after, .process-card .step-preview,
+  .process-card h3, .feature-panels, .feature-panel, .feature-copy > *, .feature-art-image {
+    transition: none; transform: none;
+  }
+  .feature-panel[data-active="true"] .feature-copy > * { opacity: 1; }
+}

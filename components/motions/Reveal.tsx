@@ -6,6 +6,8 @@ type Tag = "div" | "section" | "header" | "li" | "article" | "ul" | "figure" | "
 type Props = {
   children: ReactNode;
   delay?: number;
+  direction?: "up" | "left";
+  after?: string;
   className?: string;
   as?: Tag;
   onMount?: boolean;
@@ -13,7 +15,7 @@ type Props = {
 };
 
 /** Visible server markup; one observer starts a compositor-only CSS entrance. */
-export function Reveal({ children, delay = 0, className, as = "div", onMount = false, id }: Props) {
+export function Reveal({ children, delay = 0, className, as = "div", onMount = false, id, direction = "up", after }: Props) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -21,8 +23,10 @@ export function Reveal({ children, delay = 0, className, as = "div", onMount = f
     if (!element) return;
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     let observer: IntersectionObserver | undefined;
+    let gate: IntersectionObserver | undefined;
     const finish = () => {
       observer?.disconnect();
+      gate?.disconnect();
       delete element.dataset.reveal;
     };
     const reveal = () => {
@@ -39,7 +43,16 @@ export function Reveal({ children, delay = 0, className, as = "div", onMount = f
         }, { rootMargin: "0px 0px -40px 0px", threshold: 0 });
         // Content remains visible until JS is ready, and is never hidden from keyboard users.
         element.dataset.reveal = "pending";
-        observer.observe(element);
+        const predecessor = after ? document.querySelector(after) : null;
+        if (predecessor) {
+          gate = new IntersectionObserver(([entry]) => {
+            if (entry.boundingClientRect.bottom <= 80) {
+              gate?.disconnect();
+              observer?.observe(element);
+            }
+          }, { rootMargin: "-80px 0px 0px 0px", threshold: 0 });
+          gate.observe(predecessor);
+        } else observer.observe(element);
       }
     }
     media.addEventListener("change", onPreference);
@@ -51,10 +64,12 @@ export function Reveal({ children, delay = 0, className, as = "div", onMount = f
       element.removeEventListener("animationend", onEnd);
       element.removeEventListener("focusin", finish);
     };
-  }, [onMount]);
+  }, [onMount, after]);
 
   return createElement(as, {
     ref, className, id,
+    "data-reveal-direction": direction,
+    "data-reveal": after ? "pending" : undefined,
     style: { "--reveal-delay": `${Math.min(delay, 0.24)}s` } as CSSProperties,
   }, children);
 }

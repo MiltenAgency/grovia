@@ -1,7 +1,7 @@
 /** Moneta copy and static, illustrative finance artwork. */
 export const hero = {
   headingLines: ["Your money,", "under control."],
-  sub: "Take charge of your finances with smarter budgeting, effortless expense tracking, and meaningful insights — all in one beautiful place.",
+  sub: "Make room for what matters. Bring your spending, budgets, and savings together in one clear view.",
   primary: { label: "Get Started", href: "/#pricing" },
   secondary: { label: "Explore Features", href: "/#feature" },
 };

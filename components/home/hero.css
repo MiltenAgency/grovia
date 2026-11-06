@@ -1,0 +1,48 @@
+.vault-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 640px;
+  height: 76svh;
+  max-height: 760px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--color-panel) 0%, var(--color-paper) 96%);
+}
+.vault-hero-art { position: absolute; top: 96px; right: max(-24px, calc((100vw - 1288px) / 2)); width: 52%; height: calc(100% - 144px); object-fit: contain; z-index: -1; }
+.vault-hero-copy { position: relative; width: min(44%, 480px); padding-top: 180px; margin-left: max(80px, calc((100vw - 1040px) / 2)); }
+.vault-hero-heading { font-family: var(--font-body); font-size: 60px; line-height: 1; letter-spacing: -0.05em; font-weight: 600; color: var(--color-forest); text-wrap: balance; }
+.vault-hero-description { max-width: 360px; margin-top: 32px; font-size: 18px; line-height: 28px; color: var(--color-forest); text-wrap: pretty; }
+.vault-hero-action { display: flex; align-items: center; gap: 12px; width: fit-content; margin-top: 32px; padding: 8px; padding-left: 16px; background: var(--color-paper); border-radius: 999px; box-shadow: 0 8px 32px rgb(16 44 40 / 6%); }
+.vault-hero-action-icon { display: flex; color: var(--color-primary); }
+.vault-hero-action-label { font-size: 12px; line-height: 16px; color: var(--color-muted); padding-right: 8px; }
+.vault-hero-action .action-button { white-space: nowrap; }
+.vault-hero-note { margin-top: 16px; font-size: 12px; line-height: 16px; color: var(--color-muted); }
+.vault-hero-explore { position: absolute; bottom: 32px; left: max(80px, calc((100vw - 1040px) / 2)); display: flex; align-items: center; gap: 24px; font-size: 14px; line-height: 20px; }
+.vault-hero-explore > span:last-child { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--color-muted); border-radius: 50%; transition: transform 500ms cubic-bezier(.22,1,.36,1); }
+.vault-hero-explore:hover > span:last-child { transform: translateY(4px); }
+.vault-hero-caption { position: absolute; right: 48px; bottom: 40px; font-size: 12px; color: var(--color-muted); }
+.vault-home-nav { width: min(1040px, calc(100vw - 96px)); justify-content: space-between; background: rgb(255 255 255 / 90%); backdrop-filter: blur(16px); }
+@media (max-width: 1199px) {
+  .vault-hero-copy { margin-left: 64px; width: 46%; }
+  .vault-hero-heading { font-size: 48px; }
+  .vault-hero-action-label { display: none; }
+  .vault-hero-explore { left: 64px; }
+}
+@media (max-width: 809px) {
+  .vault-hero { min-height: 800px; height: auto; }
+  .vault-hero-copy { margin: 0; padding: 128px 24px 0; width: 100%; }
+  .vault-hero-heading { font-size: 36px; max-width: 420px; }
+  .vault-hero-description { font-size: 16px; line-height: 24px; margin-top: 24px; max-width: 340px; }
+  .vault-hero-action { margin-top: 24px; }
+  .vault-hero-art { top: 410px; right: 0; left: auto; width: 100%; height: 330px; object-fit: contain; }
+  .vault-hero-explore { bottom: 32px; left: 24px; font-size: 12px; gap: 12px; }
+  .vault-hero-explore > span:last-child { width: 32px; height: 32px; }
+  .vault-hero-caption { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .vault-hero-explore > span:last-child { transition: none; } }
+
+.vault-desktop-art { display: block; width: 100%; height: 100%; overflow: visible; }
+.vault-mobile-art { display: none; }
+@media (max-width: 809px) {
+  .vault-desktop-art { display: none; }
+  .vault-mobile-art { display: block; width: 100%; height: 100%; object-fit: contain; }
+}

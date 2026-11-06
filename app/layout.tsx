@@ -3,6 +3,7 @@ import "./globals.css";
 import { site } from "@/lib/content/site";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import { DevAgentation } from "@/components/site/DevAgentation";
 import { PageIntro } from "@/components/site/PageIntro";
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main-content">{children}</main>
         <Footer />
         </PageIntro>
+        <DevAgentation />
       </body>
     </html>
   );
