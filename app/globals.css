@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-display: "Albert Sans", "Albert Sans Placeholder", sans-serif;
-  --font-body: "Geist", "Geist Placeholder", sans-serif;
+  --font-display: var(--font-body);
+  --font-body: "Outfit", sans-serif;
 
   /* Moneta palette; original layout and typography tokens are preserved. */
   --color-primary: #147D64;
@@ -57,7 +57,7 @@ body {
 /* Sizes measured off the running original at 1440 / 810 / 390. Only the
    headings change across breakpoints; every body size is fixed. Line height is
    1.1 for h1–h2 and 1.3 below that; tracking is -0.05em down to h3 and -0.04em
-   from h4. The display face is Albert Sans, always at weight 400. */
+   from h4. */
 :root {
   --t-h1: 56px;
   --t-h2: 40px;
@@ -857,85 +857,81 @@ p {
   }
 }
 
-/* Branded loading is shown only while the initial hero assets are pending. */
+/* Open the wordmark to reveal the vault portrait. */
 .page-intro {
   position: fixed;
   inset: 0;
   z-index: 50;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
   background: var(--color-paper);
-  color: var(--color-muted);
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 220ms var(--preview-ease), visibility 0s 220ms;
 }
-
-.page-intro[data-loading="true"] {
-  opacity: 1;
-  visibility: visible;
-  transition: none;
+.intro-wordmark {
+  position: relative;
+  font-size: min(.235vw, 3px);
+  width: 254em;
+  height: 64em;
 }
-
-@keyframes intro-logo-enter {
-  from {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.intro-wordmark-left, .intro-wordmark-right {
+  position: absolute;
+  inset-block: 0;
+  background: url("/assets/moneta/wordmark.svg") no-repeat;
+  background-size: 254em 64em;
+}
+.intro-wordmark-left {
+  left: 0;
+  width: 146em;
+  --intro-offset: -70em;
+}
+.intro-wordmark-right {
+  right: 0;
+  width: 108em;
+  background-position: right center;
+  --intro-offset: 70em;
+}
+.intro-window {
+  position: absolute;
+  left: 78em;
+  top: -20em;
+  width: 136em;
+  height: 104em;
+  background: #e1daf1 url("/assets/moneta/vault-character-small.webp") center / auto 94% no-repeat;
+  border-radius: 50em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .page-intro[data-loading="true"] img {
-    animation: intro-logo-enter 350ms var(--preview-ease) both;
+  .intro-wordmark-left, .intro-wordmark-right {
+    animation: intro-part 1550ms cubic-bezier(.65,0,.18,1) 650ms both;
   }
+  .intro-window {
+    animation: intro-open 1550ms cubic-bezier(.65,0,.18,1) 650ms both;
+  }
+  .page-intro[data-phase="exit"] { animation: intro-dissolve 850ms ease-out both; pointer-events: none; }
+  .page-intro[data-phase="exit"] .intro-wordmark { animation: intro-signoff 640ms ease-in-out both; }
+}
+@keyframes intro-part {
+  from { transform: translateX(0); }
+  80%, to { transform: translateX(var(--intro-offset)); }
+}
+@keyframes intro-open {
+  from { clip-path: inset(0 50% round 50em); }
+  80%, to { clip-path: inset(0 0 round 50em); }
+}
+@keyframes intro-dissolve { to { opacity: 0; } }
+@keyframes intro-signoff { to { opacity: 0; transform: translateY(-8px) scale(.98); } }
+@media (prefers-reduced-motion: reduce) {
+  .page-intro { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-
-  .hero-chart-bar,
-  .page-intro .intro-progress,
-  .preview-skeleton {
-    animation: none;
-  }
-
-  .brandmark-link,
-  .nav-menu-link,
-  .nav-menu-link::after {
-    transition: none;
-  }
-
-  .brandmark-link:hover {
-    transform: none;
-  }
-
-  .process-card,
-  .step-preview-image,
-  .feature-tab,
-  .feature-panel {
-    transform: none !important;
-  }
-
-  .process-card,
-  .step-preview-image {
-    transition: none;
-  }
-
-  .feature-panel {
-    transition: opacity 200ms var(--preview-ease), visibility 0s 200ms;
-  }
-
-  .feature-panel[data-active="true"] {
-    transition-delay: 0s;
-  }
+  .hero-chart-bar, .preview-skeleton { animation: none; }
+  .brandmark-link, .nav-menu-link, .nav-menu-link::after { transition: none; }
+  .brandmark-link:hover { transform: none; }
+  .process-card, .step-preview-image, .feature-tab, .feature-panel { transform: none !important; }
+  .process-card, .step-preview-image { transition: none; }
+  .feature-panel { transition: opacity 200ms var(--preview-ease), visibility 0s 200ms; }
+  .feature-panel[data-active="true"] { transition-delay: 0s; }
 }
 
 @theme inline {
@@ -1273,12 +1269,7 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-
-  .page-intro,
-  .moneta-hero .hero-balance-card,
-  .moneta-hero .hero-savings-card {
-    transition: none;
-  }
+  .moneta-hero .hero-balance-card, .moneta-hero .hero-savings-card { transition: none; }
 }
 
 /* The dashboard enters once from the left as it reaches the viewport. */

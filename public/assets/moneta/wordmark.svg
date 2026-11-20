@@ -1,1 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="105" height="35" viewBox="0 0 105 35" fill="none"><g font-family="Geist, Arial, sans-serif"><text x="0" y="27" fill="#102C28" font-size="29" font-weight="600">moneta.</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="254" height="64" viewBox="0 0 254 64" role="img" aria-labelledby="title">
+  <title id="title">Moneta</title>
+  <g fill="none" stroke="#147D64" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 53C12 34 24 10 34 11C47 12 41 48 29 48C15 48 30 23 49 21C58 20 54 39 48 51C54 40 60 29 67 30C75 31 65 50 71 52"/>
+  </g>
+  <path fill="#C5A7F7" d="M63 8Q63.5 6 64.5 8C66 12 67 13 71 14.5Q72.5 15 71 16C67 17.5 66 19 64.5 23Q64 24.5 63 23C61.5 19 60 17.5 56 16Q54.5 15.5 56 14.5C60 13 61.5 12 63 8Z"/>
+  <g fill="none" stroke="#102C28" stroke-width="8" stroke-linejoin="round">
+    <circle cx="93" cy="39" r="13"/>
+    <path d="M118 55V24M118 39C118 22 141 20 141 37V55"/>
+    <path d="M176 47C168 57 150 53 150 39C150 21 177 20 177 38H151"/>
+    <path d="M191 14V43Q191 57 205 51M183 27H203"/>
+    <circle cx="226" cy="39" r="13"/>
+    <path d="M239 24V46Q239 53 246 52"/>
+  </g>
+</svg>

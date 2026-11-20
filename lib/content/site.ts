@@ -1,6 +1,7 @@
 /** Shared Moneta identity and landing-page destinations. */
 export const site = {
   name: "Moneta",
+  wordmark: "/assets/moneta/wordmark.svg",
   logo: "/assets/moneta/brandmark.svg",
   title: "Moneta — Your money. Made simple.",
   description: "Your money, under control. Explore smarter budgeting, spending insights, and savings goals in this personal finance design concept.",

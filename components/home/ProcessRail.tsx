@@ -6,11 +6,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { steps } from "@/lib/content/home";
 import { HoverSurface } from "@/components/motions/HoverSurface";
+import { ProcessCardDetail } from "./ProcessCardDetail";
 import "./process-rail.css";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-/** The bead scrubs; step entrances play or reverse as it crosses each marker. */
+/** The bead and every step share the same reversible scroll progress. */
 export function ProcessRail() {
   const root = useRef<HTMLDivElement>(null);
 
@@ -52,18 +53,19 @@ export function ProcessRail() {
       gsap.set(fill, { scaleX: desktop ? 0 : 1, scaleY: desktop ? 1 : 0, transformOrigin: "0 0" });
       gsap.set(bead, { x: 0, y: 0 });
 
-      // Staggered entrance: all 3 steps reveal smoothly as the section enters the viewport
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: stage,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-        defaults: { ease: "power3.out" },
-      })
-        .from(stage.querySelector(".process-rail-heading"), { y: 24, opacity: 0, duration: 0.7 })
-        .from(track, { scaleX: 0, transformOrigin: "0 50%", opacity: 0, duration: 0.6 }, "-=0.3")
-        .from(items, { y: 36, opacity: 0, duration: 0.75, stagger: 0.14 }, "-=0.4");
+      const entrances = items.map((item) => {
+        const number = item.querySelector("[data-rail-number]");
+        const image = item.querySelector("[data-rail-image]");
+        const marker = item.querySelector(".process-rail-marker-fill");
+        const copy = item.querySelectorAll(".process-rail-title h3, .process-rail-step > p");
+        item.dataset.reached = "false";
+        const entrance = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } })
+          .fromTo(marker, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3 }, 0)
+          .fromTo(number, { yPercent: 110, rotationX: -35 }, { yPercent: 0, rotationX: 0, duration: 0.55 }, 0.04)
+          .fromTo(copy, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.04 }, 0.04)
+          .fromTo(image, { y: 20, scale: 0.96, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.65 }, 0.12);
+        return entrance;
+      });
 
       // The line fill and bead scrub smoothly as the user scrolls through the steps
       const rail = gsap.timeline({
@@ -78,8 +80,17 @@ export function ProcessRail() {
         onUpdate() {
           const progress = this.progress();
           items.forEach((item, index) => {
-            const active = progress >= (thresholds[index] ?? 0);
+            // Leave room for the final entrance on mobile, where the track
+            // ends exactly at the last marker.
+            const revealRange = Math.max(0.035, Math.min(0.13, (1 - thresholds[index]) * 0.9));
+            const start = Math.min(thresholds[index], 1 - revealRange);
+            const active = progress >= start;
             item.dataset.reached = String(active);
+            // Derive visibility from the bead rather than independent play/reverse
+            // animations, so fast scrolling and direction changes cannot leave a
+            // card visible after the bead has passed it on the way back.
+            const reveal = gsap.utils.clamp(0, 1, (progress - start) / revealRange);
+            entrances[index].progress(reveal);
           });
         },
       });
@@ -116,8 +127,7 @@ export function ProcessRail() {
                 <p className="t-body text-muted">{step.body}</p>
                 <HoverSurface className="process-rail-art-surface">
                   <div data-rail-image className="process-rail-art" data-ui>
-                    <img src={step.backdrop} alt="" className="process-rail-art-backdrop" loading="lazy" />
-                    <img src={step.art} alt="" width={300} height={351} className="process-rail-art-image" loading="lazy" />
+                    <ProcessCardDetail step={step.num} />
                   </div>
                 </HoverSurface>
               </li>

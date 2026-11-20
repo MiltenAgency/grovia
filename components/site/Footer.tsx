@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { footer } from "@/lib/content/site";
+import { footer, site } from "@/lib/content/site";
 import { Icon, type IconName } from "@/components/ui/Icon";
 
 const socialIcon: Record<string, IconName> = {
@@ -58,11 +58,9 @@ export function Footer() {
                   </li>
                 ))}
               </ul>
-              {/* The export marks this up as an <h1>; kept visually identical
-                  but demoted so each route has exactly one. */}
-              <p className="t-h1">
-                <Link href="/" aria-label="Moneta home">moneta.</Link>
-              </p>
+              <Link href="/" aria-label="Moneta home">
+                <img src={site.wordmark} alt="" width={208} height={52} />
+              </Link>
             </div>
             <p className="t-body text-muted">Original design by <a href="https://lunisdesign.com" className="underline underline-offset-4 hover:opacity-70">Lunis</a>. All rights reserved.</p>
           </div>
