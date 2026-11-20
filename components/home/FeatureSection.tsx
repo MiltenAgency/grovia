@@ -25,7 +25,7 @@ export function FeatureSection() {
 
   const { contextSafe } = useGSAP(() => {
     const media = gsap.matchMedia();
-    media.add("(min-width: 810px) and (min-height: 800px) and (prefers-reduced-motion: no-preference)", () => {
+    media.add("(min-width: 320px) and (min-height: 620px) and (prefers-reduced-motion: no-preference)", () => {
       const element = root.current!;
       const panels = cards.current.filter((card): card is HTMLElement => Boolean(card));
       const artwork = panels.map(card => card.querySelector("[data-stack-media]"));
@@ -36,38 +36,33 @@ export function FeatureSection() {
       setActive(0);
       gsap.set(panels, { transformOrigin: "50% 100%" });
       gsap.set(panels.slice(1), { yPercent: 115 });
-      const titles = panels.map((card, index) => {
-        // The first card starts readable; only incoming cards need an entrance.
-        if (index === 0) return null;
-        return gsap.fromTo(card.querySelectorAll(".feature-stack-copy > *"),
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.45, stagger: 0.06, ease: "power3.out", paused: true });
-      });
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: stage.current,
-          start: "top 112px",
+          start: "top 100px",
           end: () => `+=${(panels.length - 1) * Math.max(520, window.innerHeight * 0.85)}`,
           pin: true,
           scrub: 0.5,
           invalidateOnRefresh: true,
         },
         onUpdate() {
-          const next = Math.min(panels.length - 1, Math.floor(this.time() + 0.22));
+          const next = Math.min(panels.length - 1, Math.floor(this.time() + 0.5));
           if (next === current) return;
           setDirection(next > current ? "forward" : "backward");
           current = next;
           setActive(next);
-          titles.forEach((title, index) => { if (index <= next) title?.play(); else title?.reverse(); });
         },
       });
       panels.slice(1).forEach((panel, offset) => {
         timeline
-          .to(panels[offset], { scale: 0.9, y: -24, rotation: offset % 2 ? 2.5 : -2.5, duration: 1, ease: "none" }, offset)
+          .to(panels[offset], { scale: 0.9, y: 28, rotation: offset % 2 ? 2.5 : -2.5, duration: 1, ease: "none" }, offset)
           .to(shade[offset], { opacity: 0.16, duration: 1, ease: "none" }, offset)
           .to(artwork[offset], { scale: 1.08, rotation: 1.5, duration: 1, ease: "none" }, offset)
           .to(panel, { yPercent: 0, duration: 1, ease: "none" }, offset)
-          .fromTo(artwork[offset + 1], { yPercent: 8, scale: 1.04 }, { yPercent: 0, scale: 1, duration: 1, ease: "none" }, offset);
+          .fromTo(artwork[offset + 1], { yPercent: 8, scale: 1.04 }, { yPercent: 0, scale: 1, duration: 1, ease: "none" }, offset)
+          .fromTo(panels[offset + 1].querySelectorAll(".feature-stack-copy > *"),
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.45, stagger: 0.06, ease: "power3.out" }, offset + 0.2);
       });
       trigger.current = timeline.scrollTrigger!;
       return () => {
@@ -135,17 +130,17 @@ export function FeatureSection() {
   return (
     <section ref={root} id="feature" className="feature-stack-section">
       <div className="wrap py-20">
+        <SectionHeading heading={featuresIntro.heading} sub={featuresIntro.sub} className="feature-stack-heading" />
         <div ref={stage} className="feature-stack-stage">
-          <SectionHeading heading={featuresIntro.heading} sub={featuresIntro.sub} className="feature-stack-heading" />
           <div className="feature-stack-frame">
             {featureTabs.map((feature, index) => (
               <article key={feature.id} id={`feature-card-${feature.id}`}
                 ref={element => { cards.current[index] = element; if (element) element.inert = stacked && active !== index; }}
-                className="feature-stack-card" data-active={active === index} aria-hidden={stacked && active !== index ? true : undefined}
+                className="feature-stack-card" data-feature={feature.id} data-active={active === index} aria-hidden={stacked && active !== index ? true : undefined}
                 aria-labelledby={`feature-title-${feature.id}`} style={{ zIndex: index + 1 }}>
                 <FeatureArtwork feature={feature} />
                 <div className="feature-stack-copy">
-                  <span className="caption-4 rounded-full bg-butter px-3 py-2">{feature.eyebrow}</span>
+                  <span className="feature-stack-category">{feature.tab}</span>
                   <h3 id={`feature-title-${feature.id}`} className="t-h3">{feature.heading}</h3>
                   <p className="t-body text-muted">{feature.body}</p>
                 </div>

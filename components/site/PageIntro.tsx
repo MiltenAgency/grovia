@@ -1,39 +1,67 @@
 "use client";
 
 import { createContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { site } from "@/lib/content/site";
+import { usePathname } from "next/navigation";
 
 export const InitialAssetsReady = createContext(true);
 
-/** A real initial hero-asset loading phase, with no minimum display duration. */
 export function PageIntro({ children }: { children: ReactNode }) {
-  const [loading, setLoading] = useState(false);
-  const [ready, setReady] = useState(false);
+  const pathname = usePathname();
+  const [phase, setPhase] = useState<"intro" | "exit" | "done">(
+    pathname === "/" ? "intro" : "done",
+  );
   const content = useRef<HTMLDivElement>(null);
+  const intro = useRef<HTMLDivElement>(null);
+  const showing = pathname === "/" && phase !== "done";
 
   useEffect(() => {
-    let disposed = false;
-    const images = Array.from(content.current?.querySelectorAll<HTMLImageElement>('img[data-preload="hero"]') ?? []);
-    if (!content.current?.querySelector("[data-moneta-hero]") ||
-        (document.fonts.status === "loaded" && images.every((image) => image.complete))) {
-      setReady(true);
+    if (pathname !== "/") {
+      setPhase("done");
+      return;
+    }
+    if (phase !== "intro") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || location.hash) {
+      setPhase("done");
       return;
     }
 
-    setLoading(true);
-    Promise.allSettled([document.fonts.ready, ...images.map((image) => image.decode())]).then(() => {
-      if (!disposed) { setLoading(false); setReady(true); }
-    });
-    return () => { disposed = true; };
-  }, []);
+    let active = true;
+    const page = content.current!;
+    page.inert = true;
+    const images = page.querySelectorAll<HTMLImageElement>('[data-preload="hero"]');
+    const assets = Promise.allSettled([document.fonts.ready, ...Array.from(images, image => image.decode())]);
+    // Wait for the letter halves to settle, even on a cached visit.
+    const motions = intro.current!.getAnimations({ subtree: true });
+    const animation = Promise.allSettled(motions.map(motion => motion.finished));
+    const reveal = () => { if (active) setPhase("exit"); };
+    Promise.all([assets, animation]).then(reveal);
+    const deadline = window.setTimeout(reveal, 3200);
+    return () => {
+      active = false;
+      page.inert = false;
+      window.clearTimeout(deadline);
+    };
+  }, [pathname, phase]);
+
+  useEffect(() => {
+    if (phase !== "exit") return;
+    const timeout = window.setTimeout(() => setPhase("done"), 860);
+    return () => window.clearTimeout(timeout);
+  }, [phase]);
 
   return (
     <>
-      <div className="page-intro" data-loading={loading} role="status" aria-hidden={!loading}>
-        <img src={site.logo} alt="" width={64} height={64} />
-        <span className="caption-4">Loading Moneta</span>
-      </div>
-      <InitialAssetsReady.Provider value={ready}>
+      {showing && (
+        <div className="page-intro" data-phase={phase} ref={intro} role="status" aria-label="Loading Moneta">
+          <div className="intro-wordmark" aria-hidden="true">
+            <span className="intro-wordmark-left" />
+            <span className="intro-wordmark-right" />
+            <span className="intro-window" />
+          </div>
+          <noscript><style>{".page-intro { display: none }"}</style></noscript>
+        </div>
+      )}
+      <InitialAssetsReady.Provider value={!showing || phase === "exit"}>
         <div ref={content} data-intro-content>{children}</div>
       </InitialAssetsReady.Provider>
     </>

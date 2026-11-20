@@ -39,31 +39,31 @@ export const featureTabs = [
     id: "expense-tracking", tab: "Expense tracking", icon: "tabMonitor" as const,
     eyebrow: "Smart Expense Tracking", heading: "Little purchases. A clearer picture.",
     body: "See everyday expenses by category, with a Subscription Overview that brings recurring costs into focus. Every detail, beautifully organized.",
-    art: [{ src: "/assets/moneta/feature-tracking.svg", w: 522, h: 389, x: 32, y: 32, r: 16 }],
+    photo: "/assets/img/0f06b396e06bb539.webp",
+    sample: { label: "Recent purchase", value: "−$6.50", detail: "Coffee · Food & drink" },
   },
   {
     id: "spending-insights", tab: "Spending insights", icon: "tabChart" as const,
     eyebrow: "Beautiful Spending Insights", heading: "See the story behind your spending.",
     body: "Discover patterns in your everyday spending. Clear charts and Financial Progress Tracking help you see the bigger picture, month after month.",
-    art: [{ src: "/assets/moneta/feature-insights.svg", w: 458, h: 311, x: 32, y: 47, r: 16 }],
+    photo: "/assets/img/9e860748e3248a44.webp",
+    sample: { label: "Monthly spending", value: "$2,180", detail: "November overview" },
   },
   {
     id: "monthly-budgets", tab: "Monthly budgets", icon: "tabLayers" as const,
     eyebrow: "Flexible Monthly Budgets", heading: "A plan that leaves room for living.",
     body: "Organize essentials, everyday joys, and everything in between. Explore flexible spending categories that make your monthly plan feel personal.",
-    art: [{ src: "/assets/moneta/feature-budgets.svg", w: 312, h: 307, x: 121, y: 37, r: 16 }],
+    photo: "/assets/img/2fc347463d5ac01a.webp",
+    sample: { label: "Monthly budget", value: "$2,180", detail: "Essentials, lifestyle & extras" },
   },
   {
     id: "savings-goals", tab: "Savings goals", icon: "tabPeople" as const,
     eyebrow: "Personalized Savings Goals", heading: "Small steps toward something bigger.",
     body: "A rainy day fund. A faraway trip. A place of your own. Picture your goals, follow your progress, and celebrate each milestone along the way.",
-    art: [
-      { src: "/assets/moneta/goal-badge.svg", w: 279, h: 63, x: 121, y: 24, r: 0 },
-      { src: "/assets/moneta/feature-savings.svg", w: 458, h: 365, x: 32, y: 44, r: 16 },
-    ],
+    photo: "/assets/img/5f39d6b8e450ecc4.webp",
+    sample: { label: "Travel fund", value: "$2,450", detail: "70% of $3,500 goal" },
   },
 ];
-export const featurePanelBackdrop = "/assets/img/805eae61739bea7c.webp";
 export const integrations = {
   heading: "Everything in one beautiful place.",
   sub: "Imagine all your financial information, organized into one clear and simple view.",

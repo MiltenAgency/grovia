@@ -1,71 +1,7 @@
-/* Lifted from the export's <style data-framer-font-css>, trimmed to the four faces
-   the site actually draws (Albert Sans 400/500, Geist 400/500) plus Framer's
-   metric-matched Arial placeholders so nothing shifts while the woff2 loads. */
-
 @font-face {
-  font-family: "Albert Sans Placeholder";
-  src: local("Arial");
-  ascent-override: 91.32%;
-  descent-override: 24.03%;
-  line-gap-override: 0%;
-  size-adjust: 104.03%;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist Placeholder";
-  src: local("Arial");
-  ascent-override: 94.56%;
-  descent-override: 27.76%;
-  line-gap-override: 0%;
-  size-adjust: 106.28%;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Albert Sans";
-  src: url(/assets/fonts/4b0fc150bec2b3a9.woff2) format("woff2");
+  font-family: "Outfit";
+  src: url("/assets/fonts/outfit-variable.woff2") format("woff2");
   font-display: swap;
   font-style: normal;
-  font-weight: 400;
-}
-
-/* latin-ext */
-@font-face {
-  font-family: "Albert Sans";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(/assets/fonts/f9c37d72e1dcc286.woff2) format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
-    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
-    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-
-/* latin */
-@font-face {
-  font-family: "Albert Sans";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(/assets/fonts/03284a81c041af82.woff2) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: "Geist";
-  src: url(/assets/fonts/678068cebf087068.woff2) format("woff2");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: "Geist";
-  src: url(/assets/fonts/6fd4f44bf9904fa7.woff2) format("woff2");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 500;
+  font-weight: 100 900;
 }

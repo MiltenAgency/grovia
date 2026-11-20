@@ -55,12 +55,9 @@ export function Navbar() {
         )}
         style={{ boxShadow: "rgba(224, 215, 198, 0.5) 0px 1px 20px 0px" }}
       >
-        <div className="flex w-20 items-center gap-2">
-          <Link href="/" aria-label={`${site.name} home`} className="brandmark-link rounded-full">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={site.logo} alt="" width={44} height={44} />
-          </Link>
-        </div>
+        <Link href="/" aria-label={`${site.name} home`} className="brandmark-link ml-2 inline-flex h-11 shrink-0 items-center rounded-md">
+          <img src={site.wordmark} alt="" width={120} height={30} />
+        </Link>
 
         <ul className="hidden items-center gap-4 px-2 md:flex">
           {navLinks.map((l) => (

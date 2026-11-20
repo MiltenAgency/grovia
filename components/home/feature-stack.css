@@ -1,25 +1,50 @@
 .feature-stack-section { position: relative; }
-.feature-stack-stage { display: flex; flex-direction: column; gap: 32px; padding-block: 16px; background: var(--color-paper); }
-.feature-stack-heading { margin-inline: auto; }
-.feature-stack-frame { display: grid; gap: 24px; }
-.feature-stack-card { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; gap: 40px; padding: 16px 40px 16px 16px; border-radius: 24px; background: var(--color-panel); overflow: hidden; }
-.feature-stack-card:nth-child(2) { background: #ebeee6; }
-.feature-stack-card:nth-child(3) { background: #ede9f2; }
-.feature-stack-card:nth-child(4) { background: #e4eee9; }
-.feature-stack-art-surface { border-radius: 16px; min-width: 0; transition: transform 550ms cubic-bezier(.22,1,.36,1); }
-.feature-stack-art { position: relative; aspect-ratio: 522 / 389; width: 100%; overflow: hidden; border-radius: 16px; background: var(--color-paper); }
+.feature-stack-heading { margin: 0 auto 32px; }
+.feature-stack-stage { padding: 8px; background: #edf0eb; border-radius: 26px; }
+.feature-stack-frame { display: grid; gap: 16px; }
+.feature-stack-card {
+  --feature-accent: #e5f2eb;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 1.08fr 1fr;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.feature-stack-card[data-feature="spending-insights"] { --feature-accent: #d9ebd2; }
+.feature-stack-card[data-feature="monthly-budgets"] { --feature-accent: #ebe5f4; }
+.feature-stack-card[data-feature="savings-goals"] { --feature-accent: #c2ed92; }
+.feature-stack-art {
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+  background: var(--feature-accent);
+}
 .feature-stack-media { position: absolute; inset: 0; }
-.feature-stack-backdrop { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.feature-stack-art-image { position: absolute; max-width: none; }
-.feature-stack-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; padding-block: 24px; }
-.feature-stack-copy h3 { text-wrap: balance; }
+.feature-stack-media img { width: 100%; height: 100%; object-fit: cover; }
+.feature-stack-sample {
+  position: absolute; bottom: 16px; left: 16px;
+  display: grid; gap: 2px;
+  background: white; color: var(--color-forest);
+  border-radius: 14px; padding: 12px 16px;
+  font-size: 13px; box-shadow: 0 6px 24px rgb(16 44 40 / 10%);
+}
+.feature-stack-sample strong { font-size: 26px; font-weight: 550; line-height: 1.1; letter-spacing: -.04em; }
+.feature-stack-sample small { font-size: 12px; color: var(--color-muted); }
+.feature-stack-copy {
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  gap: 16px; padding: clamp(24px, 4vw, 52px);
+}
+.feature-stack-category { padding: 5px 12px; background: var(--feature-accent); color: var(--color-forest); border-radius: 20px; font-size: 14px; }
+.feature-stack-copy h3 { text-wrap: balance; font-weight: 550; }
 .feature-stack-copy p { text-wrap: pretty; }
 .feature-stack-shade { position: absolute; inset: 0; z-index: 2; background: var(--color-forest); opacity: 0; pointer-events: none; }
-.feature-stack-section[data-enhanced] .feature-stack-frame { position: relative; display: block; height: clamp(360px, 48svh, 480px); overflow: hidden; border-radius: 24px; perspective: 1400px; }
+.feature-stack-section[data-enhanced] .feature-stack-frame { position: relative; display: block; height: clamp(340px, 56svh, 510px); overflow: hidden; border-radius: 20px; perspective: 1400px; }
 .feature-stack-section[data-enhanced] .feature-stack-card { position: absolute; inset: 0; }
 .feature-stack-section[data-enhanced] .feature-stack-card[data-active="false"] { pointer-events: none; }
-.feature-stack-section[data-enhanced] .feature-stack-art-surface { align-self: stretch; display: flex; align-items: center; }
-.feature-stack-controls { display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+.feature-stack-controls { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 8px 14px 0; }
 .feature-stack-position { display: flex; align-items: center; gap: 8px; font-size: 14px; line-height: 20px; font-variant-numeric: tabular-nums; }
 .feature-stack-count-mask { display: block; height: 20px; overflow: hidden; font-weight: 600; }
 .feature-stack-count { display: block; }
@@ -39,20 +64,23 @@
   .feature-stack-count { animation: stack-count-enter 350ms cubic-bezier(.22,1,.36,1) both; }
   [data-direction="backward"] .feature-stack-count { animation-name: stack-count-back; }
 }
-@media (max-width: 1199px) {
-  .feature-stack-card { gap: 24px; padding: 16px 24px 16px 16px; }
-  .feature-stack-copy { gap: 16px; }
-}
+
+.feature-stack-section:not([data-enhanced]) .feature-stack-art { min-height: 280px; }
 @media (max-width: 809px) {
-  .feature-stack-card { grid-template-columns: minmax(0,1fr); gap: 8px; padding: 8px; }
-  .feature-stack-copy { padding: 24px; }
-  .feature-stack-stage { gap: 24px; }
-  .feature-stack-heading { order: 0; }
-  .feature-stack-controls { order: 1; gap: 16px; }
-  .feature-stack-frame { order: 2; }
+  .feature-stack-card { grid-template-columns: minmax(0,1fr); grid-template-rows: minmax(0, 1fr) auto; }
+  .feature-stack-section[data-enhanced] .feature-stack-frame { height: clamp(415px, 64svh, 550px); }
+  .feature-stack-copy { gap: 8px; padding: 16px; }
+  .feature-stack-copy h3 { font-size: 26px; line-height: 1.08; }
+  .feature-stack-category { font-size: 12px; }
+  .feature-stack-position { gap: 4px; }
   .feature-stack-current-label { display: none; }
-  .feature-stack-buttons button { width: 40px; }
+  .feature-stack-controls { gap: 4px; padding: 4px 4px 0; }
+  .feature-stack-buttons { gap: 2px; }
+  .feature-stack-buttons button { width: 36px; }
+  .feature-stack-sample { bottom: 10px; left: 10px; padding: 8px 12px; }
+  .feature-stack-sample strong { font-size: 22px; }
+  .feature-stack-section:not([data-enhanced]) .feature-stack-art { min-height: 200px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .feature-stack-art-surface, .feature-stack-buttons button, .feature-stack-button-line::after { transition: none; transform: none; }
+  .feature-stack-buttons button, .feature-stack-button-line::after { transition: none; }
 }

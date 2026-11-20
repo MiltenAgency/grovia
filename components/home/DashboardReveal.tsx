@@ -13,16 +13,15 @@ export function DashboardReveal({ children, className }: { children: ReactNode; 
 
   useGSAP(() => {
     const element = root.current!;
-    const hero = document.querySelector("[data-moneta-hero]");
     const media = gsap.matchMedia();
     media.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.fromTo(element, { x: -48, opacity: 0 }, {
-        x: 0, opacity: 1, ease: "none",
+      gsap.fromTo(element.firstElementChild!, { y: 12, opacity: 0.75 }, {
+        y: 0, opacity: 1, ease: "power2.out",
         scrollTrigger: {
-          trigger: hero ?? element,
-          start: hero ? "bottom 80px" : "top 80%",
+          trigger: element,
+          start: "top bottom",
           end: "+=96",
-          scrub: 0.3,
+          scrub: true,
           invalidateOnRefresh: true,
         },
       });
@@ -30,5 +29,5 @@ export function DashboardReveal({ children, className }: { children: ReactNode; 
     return () => media.revert();
   }, { scope: root });
 
-  return <div ref={root} className={`motion-safe:opacity-0 ${className ?? ""}`}>{children}</div>;
+  return <div ref={root} className={className}>{children}</div>;
 }
