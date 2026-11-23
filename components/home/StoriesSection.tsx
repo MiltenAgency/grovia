@@ -3,11 +3,9 @@ import { caseStudies } from "@/lib/content/caseStudies";
 import { Button } from "@/components/ui/Button";
 import { Divider } from "@/components/ui/Divider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { CaseGrid } from "@/components/shared/CaseCard";
+import { StoryGallery } from "./StoryGallery";
 import { Testimonials } from "./Testimonials";
-import { Reveal } from "@/components/motions/Reveal";
 
-/** The case-study grid and the testimonials share one section in the export. */
 export function StoriesSection() {
   const shown = successStories.slugs
     .map((slug) => caseStudies.find((c) => c.slug === slug))
@@ -16,13 +14,13 @@ export function StoriesSection() {
   return (
     <section id="stories" className="flex justify-center">
       <div className="wrap flex flex-col items-center gap-16 py-20 md:gap-10 lg:gap-16">
-        <Reveal className="flex w-full flex-col items-center gap-10 md:gap-8 lg:gap-10">
+        <div className="flex w-full flex-col items-center gap-10 md:gap-8 lg:gap-10">
           <SectionHeading heading={successStories.heading} sub={successStories.sub} />
-          <CaseGrid studies={shown} />
+          <StoryGallery stories={shown.map(({ slug, name, excerpt, cover, coverAlt }) => ({ slug, name, excerpt, cover, coverAlt }))} />
           <Button href={successStories.cta.href} variant="outline">
             {successStories.cta.label}
           </Button>
-        </Reveal>
+        </div>
 
         <Divider count={5} gap={48} className="md:hidden" />
         <Divider count={5} className="max-md:hidden" />
