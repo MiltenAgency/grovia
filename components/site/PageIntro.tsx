@@ -7,20 +7,19 @@ export const InitialAssetsReady = createContext(true);
 
 export function PageIntro({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const [phase, setPhase] = useState<"intro" | "exit" | "done">(
-    pathname === "/" ? "intro" : "done",
-  );
+  const [phase, setPhase] = useState<"intro" | "exit" | "done">("intro");
   const content = useRef<HTMLDivElement>(null);
   const intro = useRef<HTMLDivElement>(null);
   const showing = pathname === "/" && phase !== "done";
 
   useEffect(() => {
     if (pathname !== "/") {
-      setPhase("done");
+      // The root layout persists between routes. Rearm the intro for the next home visit.
+      setPhase("intro");
       return;
     }
     if (phase !== "intro") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || location.hash) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setPhase("done");
       return;
     }
